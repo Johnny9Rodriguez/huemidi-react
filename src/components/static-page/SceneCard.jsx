@@ -1,49 +1,30 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { MdEdit, MdSave, MdDelete } from 'react-icons/md';
-import { MdKeyboardArrowDown } from 'react-icons/md';
+import SceneOptions from './SceneOptions';
 import useOnClickOutside from '../../hooks/useCloseOnClickOutside';
+import useSceneNameInput from '../../hooks/useSceneNameInput';
+import { MdKeyboardArrowDown } from 'react-icons/md';
 
 function SceneCard({ scene }) {
-    const [name, setName] = useState(scene.name);
+    const { name, setName, editName, setEditName, inputRef } = useSceneNameInput(scene.name); //prettier-ignore
+
     const [showOptions, setShowOptions] = useState(false);
-    const [editName, setEditName] = useState(false);
     const [saved, setSaved] = useState(true);
     const cardRef = useRef(null);
-    const inputRef = useRef(null);
 
     useOnClickOutside(cardRef.current, () => {
         setShowOptions(false);
         setEditName(false);
     });
 
+    // Reset scene name to original name if user enters empty string.
     useEffect(() => {
-        if (editName && inputRef.current) {
-            inputRef.current.focus();
-            inputRef.current.setSelectionRange(name.length, name.length);
+        if (!editName && name === '') {
+            setName(scene.name);
+            setSaved(true);
         }
+    }, [editName, name, setName, scene]);
 
-        if (!editName) {
-            // Trim whitespaces after user finished editing.
-            const trimmedName = name.trim();
-            setName(trimmedName);
-
-            // Reset scene name to original name if user enters empty string.
-            if (trimmedName === '') {
-                setName(scene.name);
-                setSaved(true);
-            }
-        }
-    }, [editName, name, scene]);
-
-    const bgColor = () => {
-        if (scene.palette.length > 1) {
-            return `linear-gradient(45deg, ${scene.palette})`;
-        } else {
-            return scene.palette[0];
-        }
-    };
-
-    const handleNameChange = (e) => {
+    const handleChange = (e) => {
         const newName = e.target.value;
         setName(newName);
 
@@ -51,19 +32,11 @@ function SceneCard({ scene }) {
         setSaved(state);
     };
 
-    const handleInputKeys = (e) => {
+    const handleKeyDown = (e) => {
         if (e.key === 'Enter' || e.key === 'Escape') {
             setEditName(false);
         }
     };
-
-    // const handleSave = () => {
-    //     if (saved) return;
-
-    //     // check name empty
-
-    //     setSaved(true);
-    // };
 
     const renderName = () => {
         if (editName) {
@@ -72,8 +45,8 @@ function SceneCard({ scene }) {
                     type='text'
                     className='scene-card-name'
                     value={name}
-                    onChange={handleNameChange}
-                    onKeyDown={handleInputKeys}
+                    onChange={handleChange}
+                    onKeyDown={handleKeyDown}
                     spellCheck={false}
                     ref={inputRef}
                 />
@@ -91,20 +64,12 @@ function SceneCard({ scene }) {
         }
     };
 
-    const renderOptions = () => {
-        return (
-            <div className='absolute right-[-1px] top-full z-20 p-1.5 flex items-center gap-2 bg-gradient-to-b from-gray-900 to-gray-950 border border-gray-700 box-content'>
-                <MdEdit
-                    className='text-gray-500 hover:text-gray-200'
-                    onClick={() => setEditName(true)}
-                />
-                <MdSave
-                    className=' text-gray-500 hover:text-gray-200'
-                    // onClick={handleSave}
-                />
-                <MdDelete className=' text-gray-500 hover:text-red-500' />
-            </div>
-        );
+    const previewColor = () => {
+        if (scene.palette.length > 1) {
+            return `linear-gradient(45deg, ${scene.palette})`;
+        } else {
+            return scene.palette[0];
+        }
     };
 
     return (
@@ -113,11 +78,11 @@ function SceneCard({ scene }) {
             ref={cardRef}
         >
             <div className='w-full overflow-hidden'>{renderName()}</div>
-            <div className='flex items-center justify-end gap-2'>
+            <div className='flex items-center justify-end gap-1'>
                 <div
                     className='w-6 h-6 rounded-full border border-gray-600'
                     style={{
-                        background: bgColor(),
+                        background: previewColor(),
                     }}
                 />
                 <div
@@ -131,7 +96,9 @@ function SceneCard({ scene }) {
                     />
                 </div>
             </div>
-            {showOptions && renderOptions()}
+            {showOptions && (
+                <SceneOptions setEditName={setEditName} setSaved={setSaved} />
+            )}
         </div>
     );
 }

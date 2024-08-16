@@ -20,8 +20,6 @@ function SceneSection({ selectedGroup, cachedScenes }) {
         );
     };
 
-    // grid grid-cols-5 gap-2
-
     return (
         <div className='p-2 bg-gradient-to-b from-gray-900 to-gray-800'>
             {selectedGroup.type === 'bridge_home' ? (
