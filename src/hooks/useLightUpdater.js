@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { makeRequest } from '../utils/updateLightResource';
+import { updateLightResource } from '../utils/updateLightResource';
 
 /**
  * Custom hook to manage light updates with rate limiting and pending update for smoother
@@ -24,7 +24,7 @@ const useLightUpdater = (updateCachedLights, selectedResource) => {
         };
 
         updateCachedLights(light.id, updateData);
-        await makeRequest(light.id, updateData);
+        await updateLightResource(light.id, updateData);
     };
 
     const updateAllLights = async (data) => {

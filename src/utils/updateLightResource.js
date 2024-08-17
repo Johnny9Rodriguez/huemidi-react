@@ -13,7 +13,7 @@ const composeLightData = ({ on = null, bri = null, color = null }) => {
 };
 
 /**
- * Data received in local light state format: 
+ * Data received in app light state format: 
  * 
  *  data = {
  *      on,
@@ -25,7 +25,7 @@ const composeLightData = ({ on = null, bri = null, color = null }) => {
  *      }
  *  }
  */
-const makeRequest = async (id, data) => {
+const updateLightResource = async (id, data) => {
     const updateData = composeLightData(data);
 
     const res = await window.huemidi.updateResource('light', id, updateData);
@@ -37,4 +37,15 @@ const makeRequest = async (id, data) => {
     }
 };
 
-module.exports = { makeRequest };
+// Uses original Hue data format instead of app light state format.
+const updateLightResourceRaw = async (id, data) => {
+    const res = await window.huemidi.updateResource('light', id, data);
+
+    if (res.error) {
+        console.error(res.error);
+        // TODO: error flag
+        return;
+    }
+};
+
+module.exports = { updateLightResource, updateLightResourceRaw };

@@ -2,14 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import useStaticDataStore from '../../stores/staticDataStore';
 import useLightUpdater from '../../hooks/useLightUpdater';
 import LightGroupDropdown from './LightGroupDropdown';
-import { makeRequest } from '../../utils/updateLightResource';
+import { updateLightResource } from '../../utils/updateLightResource';
 import { HiLightBulb } from 'react-icons/hi';
 import { MdOutlineBrightness1 } from 'react-icons/md';
 
 function StaticHeader({
     cachedLightGroups,
     cachedLights,
-    cachedScenes,
     updateCachedLights,
 }) {
     const { setSelectedResource, setShowColorPicker } = useStaticDataStore();
@@ -45,7 +44,7 @@ function StaticHeader({
             if (light.state.on === state) continue;
             const id = light.id;
 
-            await makeRequest(id, { on: state });
+            await updateLightResource(id, { on: state });
             updateCachedLights(id, { ...light.state, on: state });
         }
 

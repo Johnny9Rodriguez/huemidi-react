@@ -3,7 +3,7 @@ import useStaticDataStore from '../../stores/staticDataStore';
 import useLightUpdater from '../../hooks/useLightUpdater';
 import ToggleButton from '../shared/ToggleButton';
 import CopyPasteButton from './CopyPasteButton';
-import { makeRequest } from '../../utils/updateLightResource';
+import { updateLightResource } from '../../utils/updateLightResource';
 
 function LightCard({ light, updateCachedLights }) {
     const { setSelectedResource, setShowColorPicker, clipboard, setClipboard } =
@@ -33,7 +33,7 @@ function LightCard({ light, updateCachedLights }) {
 
         const id = light.id;
 
-        await makeRequest(id, { on: value });
+        await updateLightResource(id, { on: value });
 
         updateCachedLights(id, { ...light.state, on: value });
         pendingRequest.current = false;
@@ -66,7 +66,9 @@ function LightCard({ light, updateCachedLights }) {
         <div className='flex flex-col border border-gray-800'>
             <div className='p-3 flex flex-row items-center justify-between bg-gray-950 hover:bg-gray-900'>
                 <div
-                    className={`${isOn ? 'text-white' : 'text-white/50'} overflow-hidden whitespace-nowrap text-ellipsis`}
+                    className={`${
+                        isOn ? 'text-white' : 'text-white/50'
+                    } overflow-hidden whitespace-nowrap text-ellipsis`}
                     style={{
                         transition: 'color 0.1s ease-out',
                     }}
