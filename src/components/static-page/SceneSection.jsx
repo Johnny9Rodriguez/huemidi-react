@@ -11,7 +11,7 @@ function SceneSection({ selectedGroup, cachedScenes }) {
 
     const info = () => {
         return (
-            <div className='px-2 flex items-start gap-2 text-sm text-gray-500'>
+            <div className='px-2 flex items-start gap-2 text-sm text-gray-400'>
                 <MdInfo className='text-xl' />
                 Hue Bridge doesn't support scenes for non-grouped lights. Please select
                 a group, i.e. a room or a zone. You can set these up in the
