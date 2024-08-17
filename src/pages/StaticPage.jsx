@@ -25,7 +25,7 @@ function StaticPage() {
     useLoadLights(selectedGroup, setCachedLights, setLightsLoading);
     useLoadScenes(selectedGroup, setCachedScenes, setScenesLoading);
     useSelectGroup(cachedLightGroups, selectedGroup, setSelectedGroup);
-    
+
     useEffect(() => {
         if (!lightsLoading && !scenesLoading) {
             setPageLoading(false);
@@ -76,7 +76,7 @@ function StaticPage() {
         let modalComponent;
         switch (activeModal) {
             case MODAL_TYPES.DELETE:
-                modalComponent = <DeleteModal />;
+                modalComponent = <DeleteModal setCachedScenes={setCachedScenes} />;
                 break;
             default:
                 return null;

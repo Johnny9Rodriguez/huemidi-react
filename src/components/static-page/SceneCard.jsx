@@ -117,6 +117,7 @@ function SceneCard({ scene, updateCachedLights }) {
             </div>
             {showOptions && (
                 <SceneOptions
+                    scene={scene}
                     setEditName={setEditName}
                     setFocus={setFocus}
                     setSaved={setSaved}

@@ -2,11 +2,28 @@ import React, { useRef } from 'react';
 import useStaticDataStore from '../../stores/staticDataStore';
 import useOnClickOutside from '../../hooks/useCloseOnClickOutside';
 
-function DeleteModal() {
-    const { closeModal } = useStaticDataStore();
+function DeleteModal({ setCachedScenes }) {
+    const { selectedResource, closeModal } = useStaticDataStore();
     const modalRef = useRef(null);
 
     useOnClickOutside(modalRef, closeModal);
+
+    const handleDelete = async () => {
+        const sceneID = selectedResource.id;
+        const res = await window.huemidi.deleteResource('scene', sceneID);
+
+        closeModal();
+
+        if (res.error) {
+            console.error(res.error);
+            // TODO: error flag
+            return;
+        }
+
+        setCachedScenes((prevScenes) =>
+            prevScenes.filter((scene) => scene.id !== sceneID)
+        );
+    };
 
     const btnClasses = 'w-full py-0.5';
 
@@ -25,7 +42,10 @@ function DeleteModal() {
                 >
                     cancel
                 </button>
-                <button className={`${btnClasses} bg-red-900 hover:bg-red-700`}>
+                <button
+                    className={`${btnClasses} bg-red-900 hover:bg-red-700`}
+                    onClick={handleDelete}
+                >
                     delete
                 </button>
             </div>
