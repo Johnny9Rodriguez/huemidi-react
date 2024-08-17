@@ -16,6 +16,7 @@ function StaticPage() {
     const [cachedLightGroups, setCachedLightGroups] = useState([]);
     const [cachedLights, setCachedLights] = useState([]);
     const [cachedScenes, setCachedScenes] = useState([]);
+    // TODO: refactor loading states into a single state { pageLoading, panelLoading, ... }
     const [pageLoading, setPageLoading] = useState(true);
     const [panelLoading, setPanelLoading] = useState(true);
     const [lightsLoading, setLightsLoading] = useState(true);

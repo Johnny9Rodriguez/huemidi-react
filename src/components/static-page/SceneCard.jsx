@@ -89,7 +89,7 @@ function SceneCard({ scene, updateCachedLights }) {
 
     return (
         <div
-            className='relative pl-2 pr-1 py-1 flex flex-row items-center gap-2 bg-gray-900 hover:bg-gray-800 border border-gray-700 hover:cursor-pointer'
+            className='relative pl-2 pr-1 h-8 flex flex-row items-center gap-2 bg-gray-900 hover:bg-gray-800 border border-gray-700 hover:cursor-pointer'
             ref={cardRef}
             onClick={handleSceneLoad}
         >

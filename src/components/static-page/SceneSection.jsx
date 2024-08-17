@@ -1,5 +1,6 @@
 import React from 'react';
 import SceneCard from './SceneCard';
+import AddSceneButton from './AddSceneButton';
 import { MdInfo } from 'react-icons/md';
 
 function SceneSection({ selectedGroup, cachedScenes, updateCachedLights }) {
@@ -29,7 +30,10 @@ function SceneSection({ selectedGroup, cachedScenes, updateCachedLights }) {
             {selectedGroup.type === 'bridge_home' ? (
                 info()
             ) : (
-                <div className='grid grid-cols-4 gap-2'>{renderScenes()}</div>
+                <div className='grid grid-cols-4 gap-2'>
+                    {renderScenes()}
+                    <AddSceneButton />
+                </div>
             )}
         </div>
     );
