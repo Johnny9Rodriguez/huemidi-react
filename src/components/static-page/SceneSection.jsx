@@ -21,7 +21,7 @@ function SceneSection({ selectedGroup, cachedScenes }) {
     };
 
     return (
-        <div className='p-2 bg-gradient-to-b from-gray-900 to-gray-800'>
+        <div className='p-2'>
             {selectedGroup.type === 'bridge_home' ? (
                 info()
             ) : (

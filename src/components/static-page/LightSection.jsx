@@ -13,7 +13,7 @@ function LightSection({ cachedLights, updateCachedLights }) {
     };
 
     return (
-        <div className='p-2 flex-grow grid grid-cols-2 auto-rows-min gap-2 bg-gradient-to-b from-gray-900 to-gray-950'>
+        <div className='p-2 flex-grow grid grid-cols-2 auto-rows-min gap-2'>
             {renderLights()}
         </div>
     );
