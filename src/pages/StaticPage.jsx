@@ -7,10 +7,12 @@ import useSelectGroup from '../hooks/useSelectGroup';
 import StaticHeader from '../components/static-page/StaticHeader';
 import StaticPanel from '../components/static-page/StaticPanel';
 import ColorPicker from '../components/color-picker/ColorPicker';
+import { MODAL_TYPES } from '../constants/modalTypes';
+import DeleteModal from '../components/shared/DeleteModal';
 import { CgSpinner } from 'react-icons/cg';
 
 function StaticPage() {
-    const { selectedGroup, setSelectedGroup, showColorPicker } = useStaticDataStore(); //prettier-ignore
+    const { selectedGroup, setSelectedGroup, showColorPicker, activeModal } = useStaticDataStore(); //prettier-ignore
     const [cachedLightGroups, setCachedLightGroups] = useState([]);
     const [cachedLights, setCachedLights] = useState([]);
     const [cachedScenes, setCachedScenes] = useState([]);
@@ -31,11 +33,11 @@ function StaticPage() {
         }
     }, [lightsLoading, scenesLoading]);
 
-    useEffect(() => {
+    const setLoading = () => {
         setPanelLoading(true);
         setLightsLoading(true);
         setScenesLoading(true);
-    }, [selectedGroup]);
+    }
 
     const updateCachedLights = (id, data, updateAll = false) => {
         setCachedLights((prevLights) =>
@@ -70,13 +72,30 @@ function StaticPage() {
         );
     };
 
+    const renderModal = () => {
+        let modalComponent;
+        switch (activeModal) {
+            case MODAL_TYPES.DELETE:
+                modalComponent = <DeleteModal />;
+                break;
+            default:
+                return null;
+        }
+
+        return (
+            <div className='absolute h-full w-full flex justify-center bg-black/50 z-40 overflow-hidden'>
+                {modalComponent}
+            </div>
+        );
+    };
+
     return (
         <div className='relative h-full flex flex-col bg-gray-950'>
             <StaticHeader
                 cachedLightGroups={cachedLightGroups}
                 cachedLights={cachedLights}
-                cachedScenes={cachedScenes}
                 updateCachedLights={updateCachedLights}
+                setLoading={setLoading}
             />
             {renderPanel()}
             {showColorPicker && (
@@ -84,6 +103,7 @@ function StaticPage() {
                     <ColorPicker updateCachedLights={updateCachedLights} />
                 </div>
             )}
+            {renderModal()}
         </div>
     );
 }

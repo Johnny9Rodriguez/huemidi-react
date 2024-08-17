@@ -18,7 +18,7 @@ function ColorPicker({ updateCachedLights }) {
     const [colorMode, setColorMode] = useState(null);
     const colorPicker = useRef(null);
 
-    useOnClickOutside(colorPicker.current, () =>
+    useOnClickOutside(colorPicker, () =>
         setShowColorPicker(false)
     );
 
@@ -71,7 +71,7 @@ function ColorPicker({ updateCachedLights }) {
 
     return (
         <div
-            className='px-4 pt-2 pb-4 mx-auto mt-16 w-min flex flex-col items-center justify-center gap-4 bg-black border border-white/25 shadow-lg'
+            className='px-4 pt-2 pb-4 mx-auto mt-20 w-min flex flex-col items-center justify-center gap-4 bg-black border border-white/25 shadow-lg'
             ref={colorPicker}
         >
             <div className='flex flex-row justify-center'>

@@ -12,7 +12,7 @@ function SceneCard({ scene, updateCachedLights }) {
     const [saved, setSaved] = useState(true);
     const cardRef = useRef(null);
 
-    useOnClickOutside(cardRef.current, () => {
+    useOnClickOutside(cardRef, () => {
         setShowOptions(false);
         setEditName(false);
     });

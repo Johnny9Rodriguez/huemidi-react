@@ -10,6 +10,7 @@ function StaticHeader({
     cachedLightGroups,
     cachedLights,
     updateCachedLights,
+    setLoading
 }) {
     const { setSelectedResource, setShowColorPicker } = useStaticDataStore();
 
@@ -96,7 +97,7 @@ function StaticHeader({
                         }}
                         onClick={handleColorPickerClick}
                     />
-                    <LightGroupDropdown cachedLightGroups={cachedLightGroups} />
+                    <LightGroupDropdown cachedLightGroups={cachedLightGroups} setLoading={setLoading} />
                 </div>
 
                 <input
