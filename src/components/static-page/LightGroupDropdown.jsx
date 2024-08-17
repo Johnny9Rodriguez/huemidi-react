@@ -9,7 +9,7 @@ function LightGroupDropdown({ cachedLightGroups, setLoading }) {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
-    useOnClickOutside(dropdownRef.current, () => setIsOpen(false));
+    useOnClickOutside(dropdownRef, () => setIsOpen(false));
 
     const option = (name, type) => {
         return (
