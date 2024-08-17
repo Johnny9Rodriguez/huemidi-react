@@ -25,11 +25,7 @@ function StaticPage() {
     useLoadLights(selectedGroup, setCachedLights, setLightsLoading);
     useLoadScenes(selectedGroup, setCachedScenes, setScenesLoading);
     useSelectGroup(cachedLightGroups, selectedGroup, setSelectedGroup);
-
-    useEffect(() => {
-        console.log(panelLoading);
-    }, [panelLoading]);
-
+    
     useEffect(() => {
         if (!lightsLoading && !scenesLoading) {
             setPageLoading(false);
