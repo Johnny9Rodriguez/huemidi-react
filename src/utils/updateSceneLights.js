@@ -13,8 +13,11 @@ const updateSceneLights = async (scene, updateCachedLights) => {
 
         const updateData = {
             on: on,
-            bri: bri,
         };
+
+        if (bri) {
+            updateData.bri = bri;
+        }
 
         if (xy) {
             updateData.color = {
