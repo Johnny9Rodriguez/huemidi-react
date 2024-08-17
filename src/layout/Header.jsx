@@ -12,7 +12,7 @@ function Header() {
 
     return (
         <>
-            <header className='h-10 flex items-center justify-between bg-gradient-to-b from-gray-950 to-gray-900'>
+            <header className='h-10 flex-shrink-0 flex items-center justify-between bg-gradient-to-b from-gray-950 to-gray-900'>
                 <nav className='h-full flex'>
                     <HeaderLink
                         name={'Static'}
