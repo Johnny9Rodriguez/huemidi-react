@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import SceneOptions from './SceneOptions';
 import useOnClickOutside from '../../hooks/useCloseOnClickOutside';
 import useSceneNameInput from '../../hooks/useSceneNameInput';
+import { updateSceneLights } from '../../utils/updateSceneLights';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
 function SceneCard({ scene }) {
@@ -24,9 +25,10 @@ function SceneCard({ scene }) {
         }
     }, [editName, name, setName, scene]);
 
-    const handleSceneLoad = () => {
+    const handleSceneLoad = async () => {
         if (editName) return;
-        console.log('execute scene actions');
+
+        await updateSceneLights(scene);
     };
 
     const handleChange = (e) => {

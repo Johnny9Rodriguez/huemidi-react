@@ -37,15 +37,4 @@ const updateLightResource = async (id, data) => {
     }
 };
 
-// Uses original Hue data format instead of app light state format.
-const updateLightResourceRaw = async (id, data) => {
-    const res = await window.huemidi.updateResource('light', id, data);
-
-    if (res.error) {
-        console.error(res.error);
-        // TODO: error flag
-        return;
-    }
-};
-
-module.exports = { updateLightResource, updateLightResourceRaw };
+export { updateLightResource };
