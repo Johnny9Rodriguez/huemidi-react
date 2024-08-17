@@ -1,4 +1,5 @@
 import { updateLightResource } from './updateLightResource';
+import { convertXyToHex } from './colorConvert';
 
 const updateSceneLights = async (scene, updateCachedLights) => {
     const actions = scene.actions;
@@ -10,12 +11,15 @@ const updateSceneLights = async (scene, updateCachedLights) => {
         const xy = action.action.color?.xy ?? null;
         const mirek = action.action.color_temperature?.mirek ?? null;
 
+        const hex = convertXyToHex(xy) ?? null;
+
         const updateData = {
             on: on,
             bri: bri,
             color: {
                 xy: xy,
                 mirek: mirek,
+                hex: hex,
             },
         };
 
