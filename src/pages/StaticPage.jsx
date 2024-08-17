@@ -27,6 +27,10 @@ function StaticPage() {
     useSelectGroup(cachedLightGroups, selectedGroup, setSelectedGroup);
 
     useEffect(() => {
+        console.log(panelLoading);
+    }, [panelLoading]);
+
+    useEffect(() => {
         if (!lightsLoading && !scenesLoading) {
             setPageLoading(false);
             setPanelLoading(false);
@@ -37,7 +41,7 @@ function StaticPage() {
         setPanelLoading(true);
         setLightsLoading(true);
         setScenesLoading(true);
-    }
+    };
 
     const updateCachedLights = (id, data, updateAll = false) => {
         setCachedLights((prevLights) =>

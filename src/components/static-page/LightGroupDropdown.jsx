@@ -45,9 +45,11 @@ function LightGroupDropdown({ cachedLightGroups, setLoading }) {
                             key={id}
                             className='px-2 h-8 flex items-center hover:bg-gray-600'
                             onClick={() => {
-                                setLoading();
-                                setSelectedGroup(group);
                                 setIsOpen(false);
+                                if (selectedGroup.id !== group.id) {
+                                    setLoading();
+                                    setSelectedGroup(group);
+                                }
                             }}
                         >
                             {option(name, type)}
