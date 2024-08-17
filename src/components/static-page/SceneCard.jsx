@@ -5,7 +5,7 @@ import useSceneNameInput from '../../hooks/useSceneNameInput';
 import { updateSceneLights } from '../../utils/updateSceneLights';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
-function SceneCard({ scene }) {
+function SceneCard({ scene, updateCachedLights }) {
     const { name, setName, editName, setEditName, inputRef } = useSceneNameInput(scene.name); //prettier-ignore
 
     const [showOptions, setShowOptions] = useState(false);
@@ -28,7 +28,7 @@ function SceneCard({ scene }) {
     const handleSceneLoad = async () => {
         if (editName) return;
 
-        await updateSceneLights(scene);
+        await updateSceneLights(scene, updateCachedLights);
     };
 
     const handleChange = (e) => {

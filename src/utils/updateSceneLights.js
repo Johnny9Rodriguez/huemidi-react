@@ -1,6 +1,6 @@
 import { updateLightResource } from './updateLightResource';
 
-const updateSceneLights = async (scene) => {
+const updateSceneLights = async (scene, updateCachedLights) => {
     const actions = scene.actions;
     for (const action of actions) {
         const lightID = action.target.rid;
@@ -10,7 +10,7 @@ const updateSceneLights = async (scene) => {
         const xy = action.action.color?.xy ?? null;
         const mirek = action.action.color_temperature?.mirek ?? null;
 
-        const data = {
+        const updateData = {
             on: on,
             bri: bri,
             color: {
@@ -19,7 +19,8 @@ const updateSceneLights = async (scene) => {
             },
         };
 
-        await updateLightResource(lightID, data);
+        updateCachedLights(lightID, updateData);
+        await updateLightResource(lightID, updateData);
     }
 };
 
