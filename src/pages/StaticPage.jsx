@@ -40,7 +40,9 @@ function StaticPage() {
     const updateCachedLights = (id, data, updateAll = false) => {
         setCachedLights((prevLights) =>
             prevLights.map((light) =>
-                light.id === id || updateAll ? { ...light, state: data } : light
+                light.id === id || updateAll
+                    ? { ...light, state: { ...light.state, ...data } }
+                    : light
             )
         );
     };

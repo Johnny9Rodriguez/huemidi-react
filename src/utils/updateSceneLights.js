@@ -10,19 +10,28 @@ const updateSceneLights = async (scene, updateCachedLights) => {
         const bri = action.action.dimming?.brightness ?? null;
         const xy = action.action.color?.xy ?? null;
         const mirek = action.action.color_temperature?.mirek ?? null;
-        
-        const hex = xy ? convertXyToHex(xy) : getWhiteColor(mirek);
 
         const updateData = {
             on: on,
             bri: bri,
-            color: {
-                xy: xy,
-                mirek: mirek,
-                hex: hex,
-            },
         };
 
+        if (xy) {
+            updateData.color = {
+                xy: xy,
+                hex: convertXyToHex(xy),
+                mode: 'rgb',
+                mirek: null,
+            };
+        } else if (mirek) {
+            updateData.color = {
+                mirek: mirek,
+                hex: getWhiteColor(mirek),
+                mode: 'white',
+            };
+        }
+
+        // Merge with existing state if color is not updated
         updateCachedLights(lightID, updateData);
         await updateLightResource(lightID, updateData);
     }
