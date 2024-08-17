@@ -24,6 +24,11 @@ function SceneCard({ scene }) {
         }
     }, [editName, name, setName, scene]);
 
+    const handleSceneLoad = () => {
+        if (editName) return;
+        console.log('execute scene actions');
+    };
+
     const handleChange = (e) => {
         const newName = e.target.value;
         setName(newName);
@@ -72,10 +77,19 @@ function SceneCard({ scene }) {
         }
     };
 
+    // Refocus to input when clicking edit multiple times. Otherwise focus will change to edit button.
+    const setFocus = () => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+            inputRef.current.setSelectionRange(name.length, name.length);
+        }
+    };
+
     return (
         <div
             className='relative pl-2 pr-1 py-1 flex flex-row items-center gap-2 bg-gray-900 hover:bg-gray-800 border border-gray-700 hover:cursor-pointer'
             ref={cardRef}
+            onClick={handleSceneLoad}
         >
             <div className='w-full overflow-hidden'>{renderName()}</div>
             <div className='flex items-center justify-end gap-1'>
@@ -87,7 +101,10 @@ function SceneCard({ scene }) {
                 />
                 <div
                     className='text-xl text-gray-500 hover:text-gray-200'
-                    onClick={() => setShowOptions(!showOptions)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setShowOptions(!showOptions);
+                    }}
                 >
                     <MdKeyboardArrowDown
                         className={`${
@@ -97,7 +114,11 @@ function SceneCard({ scene }) {
                 </div>
             </div>
             {showOptions && (
-                <SceneOptions setEditName={setEditName} setSaved={setSaved} />
+                <SceneOptions
+                    setEditName={setEditName}
+                    setFocus={setFocus}
+                    setSaved={setSaved}
+                />
             )}
         </div>
     );
