@@ -8,7 +8,7 @@ function DeleteModal() {
 
     useOnClickOutside(modalRef, closeModal);
 
-    const btnClasses = 'w-full py-1';
+    const btnClasses = 'w-full py-0.5';
 
     return (
         <div
@@ -18,7 +18,7 @@ function DeleteModal() {
             <div className='text-sm text-gray-400'>
                 Are you sure you want to delete this scene?
             </div>
-            <div className='w-full flex items-center justify-center gap-4'>
+            <div className='w-full flex items-center justify-center gap-4 text-sm text-gray-200'>
                 <button
                     className={`${btnClasses} bg-gray-700 hover:bg-gray-500`}
                     onClick={closeModal}
