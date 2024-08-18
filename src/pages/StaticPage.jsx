@@ -8,7 +8,8 @@ import StaticHeader from '../components/static-page/StaticHeader';
 import StaticPanel from '../components/static-page/StaticPanel';
 import ColorPicker from '../components/color-picker/ColorPicker';
 import { MODAL_TYPES } from '../constants/modalTypes';
-import DeleteSceneModal from '../components/static-page/scenes/DeleteSceneModal'
+import DeleteSceneModal from '../components/static-page/scenes/DeleteSceneModal';
+import CreateSceneModal from '../components/static-page/scenes/CreateSceneModal';
 import { CgSpinner } from 'react-icons/cg';
 
 function StaticPage() {
@@ -78,6 +79,9 @@ function StaticPage() {
         switch (activeModal) {
             case MODAL_TYPES.DELETE_SCENE:
                 modalComponent = <DeleteSceneModal setCachedScenes={setCachedScenes} />;
+                break;
+            case MODAL_TYPES.CREATE_SCENE:
+                modalComponent = <CreateSceneModal cachedLights={cachedLights} setCachedScenes={setCachedScenes} />;
                 break;
             default:
                 return null;
