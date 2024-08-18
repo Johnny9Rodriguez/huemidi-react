@@ -8,6 +8,7 @@ import StaticHeader from '../components/static-page/StaticHeader';
 import StaticPanel from '../components/static-page/StaticPanel';
 import ColorPicker from '../components/color-picker/ColorPicker';
 import { MODAL_TYPES } from '../constants/modalTypes';
+import Modal from '../components/shared/Modal';
 import DeleteSceneModal from '../components/static-page/scenes/DeleteSceneModal';
 import CreateSceneModal from '../components/static-page/scenes/CreateSceneModal';
 import { CgSpinner } from 'react-icons/cg';
@@ -78,10 +79,22 @@ function StaticPage() {
         let modalComponent;
         switch (activeModal) {
             case MODAL_TYPES.DELETE_SCENE:
-                modalComponent = <DeleteSceneModal setCachedScenes={setCachedScenes} />;
+                modalComponent = (
+                    <Modal>
+                        <DeleteSceneModal setCachedScenes={setCachedScenes} />
+                    </Modal>
+                );
                 break;
             case MODAL_TYPES.CREATE_SCENE:
-                modalComponent = <CreateSceneModal cachedLights={cachedLights} setCachedScenes={setCachedScenes} />;
+                // modalComponent = <CreateSceneModal cachedLights={cachedLights} setCachedScenes={setCachedScenes} />;
+                modalComponent = (
+                    <Modal>
+                        <CreateSceneModal
+                            cachedLights={cachedLights}
+                            setCachedScenes={setCachedScenes}
+                        />
+                    </Modal>
+                );
                 break;
             default:
                 return null;
