@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
-import useStaticDataStore from '../../stores/staticDataStore';
-import useOnClickOutside from '../../hooks/useCloseOnClickOutside';
+import useStaticDataStore from '../../../stores/staticDataStore';
+import useOnClickOutside from '../../../hooks/useCloseOnClickOutside';
 
-function DeleteModal({ setCachedScenes }) {
+function DeleteSceneModal({ setCachedScenes }) {
     const { selectedResource, closeModal } = useStaticDataStore();
     const modalRef = useRef(null);
 
@@ -53,4 +53,4 @@ function DeleteModal({ setCachedScenes }) {
     );
 }
 
-export default DeleteModal;
+export default DeleteSceneModal;

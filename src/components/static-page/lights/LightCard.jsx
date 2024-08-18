@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import useStaticDataStore from '../../stores/staticDataStore';
-import useLightUpdater from '../../hooks/useLightUpdater';
-import ToggleButton from '../shared/ToggleButton';
+import useStaticDataStore from '../../../stores/staticDataStore';
+import useLightUpdater from '../../../hooks/useLightUpdater';
+import ToggleButton from '../../shared/ToggleButton';
 import CopyPasteButton from './CopyPasteButton';
-import { updateLightResource } from '../../utils/updateLightResource';
+import { updateLightResource } from '../../../utils/updateLightResource';
 
 function LightCard({ light, updateCachedLights }) {
     const { setSelectedResource, setShowColorPicker, clipboard, setClipboard } =

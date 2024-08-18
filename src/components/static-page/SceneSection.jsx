@@ -1,6 +1,6 @@
 import React from 'react';
-import SceneCard from './SceneCard';
-import AddSceneButton from './AddSceneButton';
+import SceneCard from './scenes/SceneCard';
+import AddSceneButton from './scenes/AddSceneButton';
 import { MdInfo } from 'react-icons/md';
 
 function SceneSection({ selectedGroup, cachedScenes, updateCachedLights }) {

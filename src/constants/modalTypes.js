@@ -1,3 +1,3 @@
 export const MODAL_TYPES = {
-    DELETE: 'DELETE',
+    DELETE_SCENE: 'DELETE',
 };

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import SceneOptions from './SceneOptions';
-import useOnClickOutside from '../../hooks/useCloseOnClickOutside';
-import useSceneNameInput from '../../hooks/useSceneNameInput';
-import { updateSceneLights } from '../../utils/updateSceneLights';
+import useOnClickOutside from '../../../hooks/useCloseOnClickOutside';
+import useSceneNameInput from '../../../hooks/useSceneNameInput';
+import { updateSceneLights } from '../../../utils/updateSceneLights';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
 function SceneCard({ scene, updateCachedLights }) {

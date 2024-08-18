@@ -1,5 +1,5 @@
 import React from 'react';
-import LightCard from './LightCard';
+import LightCard from './lights/LightCard';
 
 function LightSection({ cachedLights, updateCachedLights }) {
     const renderLights = () => {
