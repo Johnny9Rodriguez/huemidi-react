@@ -1,17 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useStaticDataStore from '../../../stores/staticDataStore';
 import useSceneNameInput from '../../../hooks/useSceneNameInput';
 import useUpdateScene from '../../../hooks/useUpdateScene';
 import classNames from 'classnames';
+import { sceneColorPalette, scenePreviewColor } from '../../../utils/sceneColors'; //prettier-ignore
 import { IoMdWarning } from 'react-icons/io';
+import { CgSpinner } from 'react-icons/cg';
 
-function UpdateSceneModal({ cachedLights, setCachedScenes, options }) {
-    const { selectedResource, closeModal } = useStaticDataStore();
-    // eslint-disable-next-line
+function UpdateSceneModal({
+    isLoading,
+    setIsLoading,
+    cachedLights,
+    setCachedScenes,
+    options,
+}) {
+    const { selectedResource, selectedGroup, closeModal } = useStaticDataStore(); //prettier-ignore
     const { name, setName, setEditName, inputRef } = useSceneNameInput(''); //prettier-ignore
-    const { label, reqMethod } = options;
-    const { hasActiveLight, previewColor } = useUpdateScene(cachedLights);
-    const scene = selectedResource;
+    // eslint-disable-next-line
+    const { hasActiveLight, createSceneData, makeRequest, createCachedSceneData } = useUpdateScene(cachedLights); //prettier-ignore
+    const [scene, setScene] = useState(selectedResource);
+    const [colorPalette, setColorPalette] = useState(
+        sceneColorPalette(cachedLights)
+    );
 
     useEffect(() => {
         if (scene) {
@@ -20,14 +30,52 @@ function UpdateSceneModal({ cachedLights, setCachedScenes, options }) {
     }, [scene, setName]);
 
     useEffect(() => {
+        setScene(selectedResource);
+    }, [selectedResource]);
+
+    useEffect(() => {
+        setColorPalette(sceneColorPalette(cachedLights));
+    }, [cachedLights]);
+
+    useEffect(() => {
         if (hasActiveLight) inputRef.current.focus();
     }, [inputRef, hasActiveLight]);
 
-    const handleUpdate = () => {
-        if (reqMethod) return; // if update > PUT, else > POST
+    const handleUpdate = async () => {
+        if (name === '') return;
+
+        if (isLoading) return;
+        setIsLoading(true);
+
+        const sceneData = createSceneData(selectedGroup, cachedLights, name);
+        const sceneID = scene ? scene.id : null;
+        const res = await makeRequest(sceneID, sceneData);
+        const cacheData = createCachedSceneData(
+            scene,
+            res,
+            name,
+            sceneData,
+            colorPalette
+        );
+
+        setTimeout(() => {
+            if (!scene) {
+                setCachedScenes((prevScenes) => [...prevScenes, cacheData]);
+            } else {
+                setCachedScenes((prevScenes) =>
+                    prevScenes.map((cachedScene) =>
+                        cachedScene.id === cacheData.id
+                            ? cacheData
+                            : cachedScene
+                    )
+                );
+            }
+            closeModal();
+        }, 333);
     };
 
-    const btnClasses = 'w-20 max-w-full py-0.5 bg-gray-700';
+    const btnClasses =
+        'w-20 h-6 max-w-full flex items-center justify-center py-0.5 bg-gray-700';
 
     const btnConfirm = classNames({
         'opacity-50 hover:cursor-default': !hasActiveLight,
@@ -37,7 +85,7 @@ function UpdateSceneModal({ cachedLights, setCachedScenes, options }) {
     const renderWarning = () => {
         return (
             <>
-                <div className='flex gap-2 items-start'>
+                <div className='flex gap-2 justify-center items-start'>
                     <IoMdWarning className='text-xl text-red-500' />
                     <div className='text-sm text-gray-400'>
                         At least one light must be on.
@@ -70,14 +118,17 @@ function UpdateSceneModal({ cachedLights, setCachedScenes, options }) {
                     <div
                         className='w-6 h-6 flex-shrink-0 rounded-full border border-gray-600'
                         style={{
-                            background: previewColor(),
+                            background: scenePreviewColor(colorPalette),
                         }}
                     />
                 </div>
                 <div className='w-full flex items-center justify-center gap-4 text-sm text-gray-200'>
                     <button
                         className={`${btnClasses} hover:bg-gray-500`}
-                        onClick={closeModal}
+                        onClick={() => {
+                            if (isLoading) return;
+                            closeModal();
+                        }}
                     >
                         cancel
                     </button>
@@ -85,7 +136,13 @@ function UpdateSceneModal({ cachedLights, setCachedScenes, options }) {
                         className={`${btnClasses} ${btnConfirm}`}
                         onClick={handleUpdate}
                     >
-                        {label}
+                        {isLoading ? (
+                            <div className='h-full flex items-center justify-center text-xl'>
+                                <CgSpinner className='animate-spin' />
+                            </div>
+                        ) : (
+                            options.label
+                        )}
                     </button>
                 </div>
             </>

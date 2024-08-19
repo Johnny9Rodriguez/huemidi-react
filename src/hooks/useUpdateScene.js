@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { convertHexToXy } from '../utils/colorConvert';
 
 const useUpdateScene = (cachedLights) => {
     const [hasActiveLight, setHasActiveLight] = useState(false);
@@ -12,25 +13,92 @@ const useUpdateScene = (cachedLights) => {
         }
     }, [cachedLights]);
 
-    const previewColor = () => {
-        const colors = [];
+    const createSceneData = (selectedGroup, cachedLights, name) => {
+        const actions = [];
+
         for (const light of cachedLights) {
-            if (light.state.on) {
-                const hex = light.state.color.hex;
-                colors.push(hex);
+            const target = { rid: light.id, rtype: 'light' };
+            let action;
+
+            const { on, bri, color } = light.state;
+
+            if (!on) {
+                action = { on: { on: false } };
+            } else {
+                if (color.mode === 'rgb') {
+                    const xy = color.xy ? color.xy : convertHexToXy(color.hex);
+
+                    action = {
+                        on: { on: true },
+                        dimming: { brightness: bri },
+                        color: { xy: xy },
+                    };
+                } else {
+                    action = {
+                        on: { on: true },
+                        dimming: { brightness: bri },
+                        color_temperature: { mirek: color.mirek },
+                    };
+                }
             }
+
+            actions.push({ target: target, action: action });
         }
 
-        if (colors.length > 1) {
-            return `linear-gradient(45deg, ${colors})`;
-        } else if (colors.length > 0) {
-            return colors[0];
-        } else {
-            return '#000000';
-        }
+        const group = { rid: selectedGroup.id, rtype: selectedGroup.type };
+
+        const data = {
+            metadata: {
+                name: name,
+            },
+            actions: actions,
+            group: group,
+        };
+
+        return data;
     };
 
-    return { hasActiveLight, previewColor };
+    const makeRequest = async (sceneID, data) => {
+        let res;
+
+        if (!sceneID) {
+            res = await window.huemidi.createResource('scene', data);
+        } else {
+            // Cannot modify group reference, i.e. remove it before update.
+            const { group, ...updateData } = data;
+            res = await window.huemidi.updateResource(
+                'scene',
+                sceneID,
+                updateData
+            );
+        }
+
+        if (res.error) {
+            console.error(res.error);
+            // TODO: error flag
+            return;
+        }
+
+        return res;
+    };
+
+    const createCachedSceneData = (scene, res, name, data, colorPalette) => {
+        const cacheData = {
+            id: scene ? scene.id : res.data[0].rid,
+            name: name,
+            actions: data.actions,
+            palette: colorPalette,
+        };
+
+        return cacheData;
+    };
+
+    return {
+        hasActiveLight,
+        createSceneData,
+        makeRequest,
+        createCachedSceneData,
+    };
 };
 
 export default useUpdateScene;

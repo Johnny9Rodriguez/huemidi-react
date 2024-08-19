@@ -1,14 +1,16 @@
 import React from 'react';
 import useStaticDataStore from '../../../stores/staticDataStore';
+import { CgSpinner } from 'react-icons/cg';
 
-function DeleteSceneModal({ setCachedScenes }) {
+function DeleteSceneModal({ isLoading, setIsLoading, setCachedScenes }) {
     const { selectedResource, closeModal } = useStaticDataStore();
 
     const handleDelete = async () => {
+        if (isLoading) return;
+        setIsLoading(true);
+
         const sceneID = selectedResource.id;
         const res = await window.huemidi.deleteResource('scene', sceneID);
-
-        closeModal();
 
         if (res.error) {
             console.error(res.error);
@@ -16,12 +18,16 @@ function DeleteSceneModal({ setCachedScenes }) {
             return;
         }
 
-        setCachedScenes((prevScenes) =>
-            prevScenes.filter((scene) => scene.id !== sceneID)
-        );
+        setTimeout(() => {
+            setCachedScenes((prevScenes) =>
+                prevScenes.filter((scene) => scene.id !== sceneID)
+            );
+    
+            closeModal();
+        }, 333);
     };
 
-    const btnClasses = 'w-full py-0.5';
+    const btnClasses = 'w-20 h-6 max-w-full py-0.5';
 
     return (
         <div className='flex flex-col gap-4'>
@@ -39,7 +45,13 @@ function DeleteSceneModal({ setCachedScenes }) {
                     className={`${btnClasses} bg-red-900 hover:bg-red-700`}
                     onClick={handleDelete}
                 >
-                    delete
+                    {isLoading ? (
+                            <div className='h-full flex items-center justify-center text-xl'>
+                                <CgSpinner className='animate-spin' />
+                            </div>
+                        ) : (
+                            'delete'
+                        )}
                 </button>
             </div>
         </div>

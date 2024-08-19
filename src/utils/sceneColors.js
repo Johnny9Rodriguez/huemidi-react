@@ -12,13 +12,15 @@ const sceneColorPalette = (cachedLights) => {
 
 const scenePreviewColor = (palette) => {
     const colors = palette;
+    
+    if (!colors || colors.length === 0) {
+        return '#000000'; // or any default value
+    }
 
     if (colors.length > 1) {
         return `linear-gradient(45deg, ${colors})`;
     } else if (colors.length > 0) {
         return colors[0];
-    } else {
-        return '#000000';
     }
 };
 
