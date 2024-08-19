@@ -13,6 +13,7 @@ function UpdateSceneModal({
     cachedLights,
     setCachedScenes,
     options,
+    setError,
 }) {
     const { selectedResource, selectedGroup, closeModal } = useStaticDataStore(); //prettier-ignore
     const { name, setName, setEditName, inputRef } = useSceneNameInput(''); //prettier-ignore
@@ -41,7 +42,10 @@ function UpdateSceneModal({
     }, [inputRef, hasActiveLight]);
 
     const handleUpdate = async () => {
-        if (name === '') return;
+        if (name === '') {
+            setError({ flag: true, message: 'Name cannot be empty.' });
+            return;
+        }
 
         if (isLoading) return;
         setIsLoading(true);

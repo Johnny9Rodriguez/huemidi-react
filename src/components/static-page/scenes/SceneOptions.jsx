@@ -3,17 +3,19 @@ import useStaticDataStore from '../../../stores/staticDataStore';
 import { MODAL_TYPES } from '../../../constants/modalTypes';
 import { MdEdit, MdDelete } from 'react-icons/md';
 
-function SceneOptions({ scene, setEditName }) {
+function SceneOptions({ scene, setShowOptions }) {
     const { setSelectedResource, setActiveModal } = useStaticDataStore();
 
     const handleEdit = () => {
         setActiveModal(MODAL_TYPES.EDIT_SCENE);
         setSelectedResource(scene);
+        setShowOptions(false);
     }
 
     const handleDelete = () => {
         setActiveModal(MODAL_TYPES.DELETE_SCENE);
         setSelectedResource(scene);
+        setShowOptions(false);
     };
 
     return (

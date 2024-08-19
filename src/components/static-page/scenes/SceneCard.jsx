@@ -60,6 +60,7 @@ function SceneCard({ scene, updateCachedLights }) {
             {showOptions && (
                 <SceneOptions
                     scene={scene}
+                    setShowOptions={setShowOptions}
                 />
             )}
         </div>
