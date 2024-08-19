@@ -1,0 +1,25 @@
+const sceneColorPalette = (cachedLights) => {
+    const colors = [];
+    for (const light of cachedLights) {
+        if (light.state.on) {
+            const hex = light.state.color.hex;
+            colors.push(hex);
+        }
+    }
+
+    return colors;
+};
+
+const scenePreviewColor = (palette) => {
+    const colors = palette;
+
+    if (colors.length > 1) {
+        return `linear-gradient(45deg, ${colors})`;
+    } else if (colors.length > 0) {
+        return colors[0];
+    } else {
+        return '#000000';
+    }
+};
+
+module.exports = { sceneColorPalette, scenePreviewColor };
