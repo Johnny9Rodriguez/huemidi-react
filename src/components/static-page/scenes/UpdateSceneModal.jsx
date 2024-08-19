@@ -85,14 +85,14 @@ function UpdateSceneModal({
     const renderWarning = () => {
         return (
             <>
-                <div className='flex gap-2 justify-center items-start'>
+                <div className='flex gap-2 justify-center items-start text-sm'>
                     <IoMdWarning className='text-xl text-red-500' />
-                    <div className='text-sm text-gray-400'>
+                    <div className='text-gray-400'>
                         At least one light must be on.
                     </div>
                 </div>
                 <button
-                    className={`${btnClasses} hover:bg-gray-500`}
+                    className={`${btnClasses} hover:bg-gray-500 text-gray-200 text-sm`}
                     onClick={closeModal}
                 >
                     cancel
