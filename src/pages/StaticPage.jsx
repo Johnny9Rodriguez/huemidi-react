@@ -11,6 +11,7 @@ import { MODAL_TYPES } from '../constants/modalTypes';
 import Modal from '../components/shared/Modal';
 import DeleteSceneModal from '../components/static-page/scenes/DeleteSceneModal';
 import CreateSceneModal from '../components/static-page/scenes/CreateSceneModal';
+import EditSceneModal from '../components/static-page/scenes/EditSceneModal';
 import { CgSpinner } from 'react-icons/cg';
 
 function StaticPage() {
@@ -90,6 +91,16 @@ function StaticPage() {
                 modalComponent = (
                     <Modal>
                         <CreateSceneModal
+                            cachedLights={cachedLights}
+                            setCachedScenes={setCachedScenes}
+                        />
+                    </Modal>
+                );
+                break;
+            case MODAL_TYPES.EDIT_SCENE:
+                modalComponent = (
+                    <Modal>
+                        <EditSceneModal
                             cachedLights={cachedLights}
                             setCachedScenes={setCachedScenes}
                         />

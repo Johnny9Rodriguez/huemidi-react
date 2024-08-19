@@ -24,7 +24,7 @@ function DeleteSceneModal({ setCachedScenes }) {
     const btnClasses = 'w-full py-0.5';
 
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col gap-4'>
             <div className='text-sm text-gray-400'>
                 Are you sure you want to delete this scene?
             </div>

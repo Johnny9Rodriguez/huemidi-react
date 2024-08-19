@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useStaticDataStore from '../../../stores/staticDataStore';
 import useSceneNameInput from '../../../hooks/useSceneNameInput';
 
-function CreateSceneModal({ cachedLights, setCachedScenes }) {
-    const { closeModal } = useStaticDataStore();
+function EditSceneModal({ setCachedScenes }) {
+    const { selectedResource, closeModal } = useStaticDataStore();
+    // eslint-disable-next-line
+    const [scene, setScene] = useState(selectedResource);
     const { name, setName, setEditName, inputRef } = useSceneNameInput(''); //prettier-ignore
+
+    useEffect(() => {
+        setName(scene.name);
+    }, [scene, setName]);
 
     useEffect(() => {
         inputRef.current.focus();
     }, [inputRef]);
 
-    const handleCreate = () => {};
+    const handleSave = () => {};
 
     const previewColor = () => {
         const colors = [];
-        for (const light of cachedLights) {
-            const hex = light.state.color.hex;
-            colors.push(hex);
-        }
+        scene.palette.forEach((color) => colors.push(color));
 
         if (colors.length > 1) {
             return `linear-gradient(45deg, ${colors})`;
@@ -52,12 +55,12 @@ function CreateSceneModal({ cachedLights, setCachedScenes }) {
                 <button className={`${btnClasses}`} onClick={closeModal}>
                     cancel
                 </button>
-                <button className={`${btnClasses}`} onClick={handleCreate}>
-                    create
+                <button className={`${btnClasses}`} onClick={handleSave}>
+                    save
                 </button>
             </div>
         </div>
     );
 }
 
-export default CreateSceneModal;
+export default EditSceneModal;
