@@ -11,6 +11,7 @@ import { MODAL_TYPES } from '../constants/modalTypes';
 import Modal from '../components/shared/Modal';
 import DeleteSceneModal from '../components/static-page/scenes/DeleteSceneModal';
 import UpdateSceneModal from '../components/static-page/scenes/UpdateSceneModal';
+import ErrorModal from '../components/shared/ErrorModal';
 import { CgSpinner } from 'react-icons/cg';
 
 function StaticPage() {
@@ -77,6 +78,7 @@ function StaticPage() {
 
     const renderModal = () => {
         let modalComponent;
+
         switch (activeModal) {
             case MODAL_TYPES.DELETE_SCENE:
                 modalComponent = (
@@ -105,6 +107,13 @@ function StaticPage() {
                             setCachedScenes={setCachedScenes}
                             options={{ label: 'save' }}
                         />
+                    </Modal>
+                );
+                break;
+            case MODAL_TYPES.ERROR:
+                modalComponent = (
+                    <Modal>
+                        <ErrorModal />
                     </Modal>
                 );
                 break;

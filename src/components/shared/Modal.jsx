@@ -36,14 +36,14 @@ function Modal({ children }) {
                 )}
             </div>
             <div
-                className={`w-max px-2 pb-0.5 pt-1 -z-10 flex items-center gap-1 -translate-y-8 text-red-700 bg-gray-950 text-sm border border-t-0 border-gray-700 ${
+                className={`w-max px-2 pb-0.5 pt-1 -z-10 flex items-center gap-1 -translate-y-8 text-red-500 bg-gray-950 text-sm border border-t-0 border-gray-700 ${
                     error.flag && 'mt-8'
                 }`}
                 style={{
-                    transition: 'margin-top 0.2s ease',
+                    transition: 'margin-top 0.3s ease',
                 }}
             >
-                <IoMdWarning className='text-lg' />
+                <IoMdWarning className='flex-shrink-0 text-lg' />
                 <div>{error.message}</div>
             </div>
         </div>

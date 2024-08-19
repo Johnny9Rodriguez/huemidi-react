@@ -90,7 +90,7 @@ function UpdateSceneModal({
         return (
             <>
                 <div className='flex gap-2 justify-center items-start text-sm'>
-                    <IoMdWarning className='text-xl text-red-500' />
+                    <IoMdWarning className='flex-shrink-0 text-xl text-red-500' />
                     <div className='text-gray-400'>
                         At least one light must be on.
                     </div>
