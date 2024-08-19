@@ -58,7 +58,7 @@ const useUpdateScene = (cachedLights) => {
         return data;
     };
 
-    const makeRequest = async (sceneID, data) => {
+    const updateScene = async (sceneID, data) => {
         let res;
         
         // If sceneID is null, request will create a new scene with POST.
@@ -87,7 +87,7 @@ const useUpdateScene = (cachedLights) => {
     return {
         hasActiveLight,
         createSceneData,
-        makeRequest,
+        updateScene,
     };
 };
 

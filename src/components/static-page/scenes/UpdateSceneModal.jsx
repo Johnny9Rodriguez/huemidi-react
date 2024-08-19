@@ -16,7 +16,7 @@ function UpdateSceneModal({
 }) {
     const { selectedResource, selectedGroup, closeModal } = useStaticDataStore(); //prettier-ignore
     const { name, setName, setEditName, inputRef } = useSceneNameInput(''); //prettier-ignore
-    const { hasActiveLight, createSceneData, makeRequest } = useUpdateScene(cachedLights); //prettier-ignore
+    const { hasActiveLight, createSceneData, updateScene } = useUpdateScene(cachedLights); //prettier-ignore
     const [scene, setScene] = useState(selectedResource);
     const [colorPalette, setColorPalette] = useState(
         sceneColorPalette(cachedLights)
@@ -49,7 +49,7 @@ function UpdateSceneModal({
         const sceneData = createSceneData(selectedGroup, cachedLights, name);
         const sceneID = scene ? scene.id : null;
 
-        const res = await makeRequest(sceneID, sceneData);
+        const res = await updateScene(sceneID, sceneData);
 
         const cacheData = {
             id: scene ? scene.id : res.data[0].rid,
