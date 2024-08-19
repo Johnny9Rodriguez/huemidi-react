@@ -8,7 +8,7 @@ function ErrorModal() {
     const btnClasses = 'w-20 h-6 max-w-full py-0.5';
 
     return (
-        <div className='flex flex-col gap-4'>
+        <div className='w-96 flex flex-col gap-4'>
             <div className='flex gap-2 justify-center items-start text-sm'>
                 <IoMdWarning className='flex-shrink-0 text-xl text-red-500' />
                 <div className='text-gray-400'>

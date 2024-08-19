@@ -28,7 +28,7 @@ function Modal({ children }) {
     return (
         <div className='flex flex-col items-end'>
             <div
-                className='p-4 mt-20 w-64 flex flex-col items-center justify-center gap-4 bg-gradient-to-b from-gray-800 to-gray-900 border border-gray-700'
+                className='p-4 mt-20 min-w-64 flex flex-col items-center justify-center gap-4 bg-gradient-to-b from-gray-800 to-gray-900 border border-gray-700'
                 ref={modalRef}
             >
                 {React.Children.map(children, (child) =>

@@ -120,6 +120,7 @@ function UpdateSceneModal({
                         onFocus={() => setEditName(true)}
                         onBlur={() => setEditName(false)}
                         ref={inputRef}
+                        maxLength={32}
                     />
                     <div
                         className='w-6 h-6 flex-shrink-0 rounded-full border border-gray-600'
