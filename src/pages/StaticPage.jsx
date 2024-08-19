@@ -92,7 +92,7 @@ function StaticPage() {
                         <UpdateSceneModal
                             cachedLights={cachedLights}
                             setCachedScenes={setCachedScenes}
-                            options={{ label: 'create', reqMethod: 'POST' }}
+                            options={{ label: 'create' }}
                         />
                     </Modal>
                 );
@@ -103,7 +103,7 @@ function StaticPage() {
                         <UpdateSceneModal
                             cachedLights={cachedLights}
                             setCachedScenes={setCachedScenes}
-                            options={{ label: 'save', reqMethod: 'PUT' }}
+                            options={{ label: 'save' }}
                         />
                     </Modal>
                 );
