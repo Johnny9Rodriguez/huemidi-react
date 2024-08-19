@@ -1,4 +1,4 @@
-import React, { useState, useRef, cloneElement } from 'react';
+import React, { useState, useRef, cloneElement, useEffect } from 'react';
 import useStaticDataStore from '../../stores/staticDataStore';
 import useOnClickOutside from '../../hooks/useCloseOnClickOutside';
 import { IoMdWarning } from 'react-icons/io';
@@ -13,6 +13,17 @@ function Modal({ children }) {
         if (isLoading) return;
         closeModal();
     });
+
+    // Hide error message after approx. 3 seconds.
+    useEffect(() => {
+        if (error.flag) {
+            const timer = setTimeout(() => {
+                setError((prevError) => ({ ...prevError, flag: false }));
+            }, 3333);
+    
+            return () => clearTimeout(timer);
+        }
+    }, [error.flag]);
 
     return (
         <div className='flex flex-col items-end'>
