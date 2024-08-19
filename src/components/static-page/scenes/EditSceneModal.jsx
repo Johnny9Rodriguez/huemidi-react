@@ -1,64 +1,96 @@
 import React, { useEffect, useState } from 'react';
 import useStaticDataStore from '../../../stores/staticDataStore';
 import useSceneNameInput from '../../../hooks/useSceneNameInput';
+import useUpdateScene from '../../../hooks/useUpdateScene';
+import classNames from 'classnames';
+import { IoMdWarning } from 'react-icons/io';
 
-function EditSceneModal({ setCachedScenes }) {
+function EditSceneModal({ cachedLights, setCachedScenes }) {
     const { selectedResource, closeModal } = useStaticDataStore();
     // eslint-disable-next-line
     const [scene, setScene] = useState(selectedResource);
     const { name, setName, setEditName, inputRef } = useSceneNameInput(''); //prettier-ignore
+
+    const { hasActiveLight, previewColor } = useUpdateScene(cachedLights);
 
     useEffect(() => {
         setName(scene.name);
     }, [scene, setName]);
 
     useEffect(() => {
-        inputRef.current.focus();
-    }, [inputRef]);
+        if (hasActiveLight) inputRef.current.focus();
+    }, [inputRef, hasActiveLight]);
 
     const handleSave = () => {};
 
-    const previewColor = () => {
-        const colors = [];
-        scene.palette.forEach((color) => colors.push(color));
+    const btnClasses = 'w-20 max-w-full py-0.5 bg-gray-700';
 
-        if (colors.length > 1) {
-            return `linear-gradient(45deg, ${colors})`;
-        } else {
-            return colors[0];
-        }
-    };
+    const btnConfirm = classNames({
+        'opacity-50 hover:cursor-default': !hasActiveLight,
+        'hover:bg-gray-500': hasActiveLight,
+    });
 
-    const btnClasses = 'w-full py-0.5 bg-gray-700 hover:bg-gray-500';
-
-    return (
-        <div className='flex flex-col gap-4'>
-            <div className='w-full overflow-hidden flex gap-4'>
-                <input
-                    type='text'
-                    className='scene-card-name'
-                    placeholder='New Scene'
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    onFocus={() => setEditName(true)}
-                    onBlur={() => setEditName(false)}
-                    ref={inputRef}
-                />
-                <div
-                    className='w-6 h-6 flex-shrink-0 rounded-full border border-gray-600'
-                    style={{
-                        background: previewColor(),
-                    }}
-                />
-            </div>
-            <div className='w-full flex items-center justify-center gap-4 text-sm text-gray-200'>
-                <button className={`${btnClasses}`} onClick={closeModal}>
+    const renderWarning = () => {
+        return (
+            <>
+                <div className='flex gap-2 items-start'>
+                    <IoMdWarning className='text-xl text-red-500' />
+                    <div className='text-sm text-gray-400'>
+                        At least one light must be on.
+                    </div>
+                </div>
+                <button
+                    className={`${btnClasses} hover:bg-gray-500`}
+                    onClick={closeModal}
+                >
                     cancel
                 </button>
-                <button className={`${btnClasses}`} onClick={handleSave}>
-                    save
-                </button>
-            </div>
+            </>
+        );
+    };
+
+    const renderContent = () => {
+        return (
+            <>
+                <div className='w-full overflow-hidden flex gap-4'>
+                    <input
+                        type='text'
+                        className='scene-card-name'
+                        placeholder='New Scene'
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        onFocus={() => setEditName(true)}
+                        onBlur={() => setEditName(false)}
+                        ref={inputRef}
+                    />
+                    <div
+                        className='w-6 h-6 flex-shrink-0 rounded-full border border-gray-600'
+                        style={{
+                            background: previewColor(),
+                        }}
+                    />
+                </div>
+                <div className='w-full flex items-center justify-center gap-4 text-sm text-gray-200'>
+                    <button
+                        className={`${btnClasses} hover:bg-gray-500`}
+                        onClick={closeModal}
+                    >
+                        cancel
+                    </button>
+                    <button
+                        className={`${btnClasses} ${btnConfirm}`}
+                        onClick={handleSave}
+                    >
+                        save
+                    </button>
+                </div>
+            </>
+        );
+    };
+
+    return (
+        <div className='flex flex-col items-center gap-4'>
+            {hasActiveLight ? renderContent() : renderWarning()}
         </div>
     );
 }
