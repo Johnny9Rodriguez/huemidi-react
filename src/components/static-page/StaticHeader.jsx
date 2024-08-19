@@ -97,7 +97,7 @@ function StaticHeader({
                         }}
                         onClick={handleColorPickerClick}
                     />
-                    <LightGroupDropdown cachedLightGroups={cachedLightGroups} setLoading={setLoading} />
+                    <LightGroupDropdown cachedLightGroups={cachedLightGroups} setLoading={setLoading} setBri={setBri} />
                 </div>
 
                 <input

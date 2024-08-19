@@ -3,7 +3,7 @@ import useOnClickOutside from '../../hooks/useCloseOnClickOutside';
 import useStaticDataStore from '../../stores/staticDataStore';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
-function LightGroupDropdown({ cachedLightGroups, setLoading }) {
+function LightGroupDropdown({ cachedLightGroups, setLoading, setBri }) {
     const { selectedGroup, setSelectedGroup } = useStaticDataStore();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -45,6 +45,7 @@ function LightGroupDropdown({ cachedLightGroups, setLoading }) {
                             key={id}
                             className='px-2 h-8 flex items-center hover:bg-gray-600'
                             onClick={() => {
+                                setBri(50);
                                 setIsOpen(false);
                                 if (selectedGroup.id !== group.id) {
                                     setLoading();
