@@ -60,7 +60,9 @@ const useUpdateScene = (cachedLights) => {
 
     const makeRequest = async (sceneID, data) => {
         let res;
-
+        
+        // If sceneID is null, request will create a new scene with POST.
+        // Otherwise it will update the scene with given ID.
         if (!sceneID) {
             res = await window.huemidi.createResource('scene', data);
         } else {
@@ -82,22 +84,10 @@ const useUpdateScene = (cachedLights) => {
         return res;
     };
 
-    const createCachedSceneData = (scene, res, name, data, colorPalette) => {
-        const cacheData = {
-            id: scene ? scene.id : res.data[0].rid,
-            name: name,
-            actions: data.actions,
-            palette: colorPalette,
-        };
-
-        return cacheData;
-    };
-
     return {
         hasActiveLight,
         createSceneData,
         makeRequest,
-        createCachedSceneData,
     };
 };
 

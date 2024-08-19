@@ -16,8 +16,7 @@ function UpdateSceneModal({
 }) {
     const { selectedResource, selectedGroup, closeModal } = useStaticDataStore(); //prettier-ignore
     const { name, setName, setEditName, inputRef } = useSceneNameInput(''); //prettier-ignore
-    // eslint-disable-next-line
-    const { hasActiveLight, createSceneData, makeRequest, createCachedSceneData } = useUpdateScene(cachedLights); //prettier-ignore
+    const { hasActiveLight, createSceneData, makeRequest } = useUpdateScene(cachedLights); //prettier-ignore
     const [scene, setScene] = useState(selectedResource);
     const [colorPalette, setColorPalette] = useState(
         sceneColorPalette(cachedLights)
@@ -49,14 +48,15 @@ function UpdateSceneModal({
 
         const sceneData = createSceneData(selectedGroup, cachedLights, name);
         const sceneID = scene ? scene.id : null;
+
         const res = await makeRequest(sceneID, sceneData);
-        const cacheData = createCachedSceneData(
-            scene,
-            res,
-            name,
-            sceneData,
-            colorPalette
-        );
+
+        const cacheData = {
+            id: scene ? scene.id : res.data[0].rid,
+            name: name,
+            actions: sceneData.actions,
+            palette: colorPalette,
+        };
 
         setTimeout(() => {
             if (!scene) {
