@@ -55,6 +55,8 @@ function UpdateSceneModal({
 
         const res = await updateScene(sceneID, sceneData);
 
+        if (!res) return;
+
         const cacheData = {
             id: scene ? scene.id : res.data[0].rid,
             name: name,

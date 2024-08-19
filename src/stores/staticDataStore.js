@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { MODAL_TYPES } from '../constants/modalTypes';
 
 const useStaticDataStore = create((set) => ({
     selectedGroup: null,
@@ -8,6 +9,7 @@ const useStaticDataStore = create((set) => ({
     activeModal: null,
     setActiveModal: (modalType) => set({ activeModal: modalType }),
     closeModal: () => set({ activeModal: null }),
+    setErrorModal: () => set({ activeModal: MODAL_TYPES.ERROR }),
     showColorPicker: false,
     setShowColorPicker: (state) => set({ showColorPicker: state }),
     clipboard: null,

@@ -61,7 +61,7 @@ function StaticPage() {
         );
     };
 
-    if (pageLoading) return loadingScreen();
+    if (pageLoading && activeModal !== MODAL_TYPES.ERROR) return loadingScreen();
 
     const renderPanel = () => {
         if (panelLoading) return loadingScreen();
