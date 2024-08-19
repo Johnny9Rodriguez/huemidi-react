@@ -3,12 +3,13 @@ import useStaticDataStore from '../../../stores/staticDataStore';
 import useLightUpdater from '../../../hooks/useLightUpdater';
 import ToggleButton from '../../shared/ToggleButton';
 import CopyPasteButton from './CopyPasteButton';
-import { updateLightResource } from '../../../utils/updateLightResource';
+import useUpdateLightResource from '../../../hooks/useUpdateLightResource';
 
 function LightCard({ light, updateCachedLights }) {
     const { setSelectedResource, setShowColorPicker, clipboard, setClipboard } =
         useStaticDataStore();
 
+    const { updateLightResource } = useUpdateLightResource();
     const handleLightUpdate = useLightUpdater(updateCachedLights, {
         type: 'single',
         resource: light,

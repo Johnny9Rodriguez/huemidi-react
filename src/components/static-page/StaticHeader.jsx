@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import useStaticDataStore from '../../stores/staticDataStore';
 import useLightUpdater from '../../hooks/useLightUpdater';
 import LightGroupDropdown from './LightGroupDropdown';
-import { updateLightResource } from '../../utils/updateLightResource';
+import useUpdateLightResource from '../../hooks/useUpdateLightResource';
 import { HiLightBulb } from 'react-icons/hi';
 import { MdOutlineBrightness1 } from 'react-icons/md';
 
@@ -13,6 +13,7 @@ function StaticHeader({
     setLoading
 }) {
     const { setSelectedResource, setShowColorPicker } = useStaticDataStore();
+    const { updateLightResource } = useUpdateLightResource();
 
     const handleLightUpdate = useLightUpdater(updateCachedLights, {
         type: 'multi',

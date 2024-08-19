@@ -1,13 +1,16 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
+import useStaticDataStore from '../stores/staticDataStore';
 
 const useLoadGroups = (setCachedLightGroups) => {
+    const { setErrorModal } = useStaticDataStore();
+
     useEffect(() => {
         const fetchLightGroups = async () => {
             const res = await window.huemidi.fetchLightGroups();
 
             if (res.error) {
                 console.error(res.error);
-                // TODO: error flag
+                setErrorModal();
                 return;
             }
 
@@ -15,7 +18,7 @@ const useLoadGroups = (setCachedLightGroups) => {
         };
 
         fetchLightGroups();
-    }, [setCachedLightGroups]);
+    }, [setCachedLightGroups, setErrorModal]);
 };
 
 export default useLoadGroups;

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { updateLightResource } from '../utils/updateLightResource';
+import useUpdateLightResource from '../hooks/useUpdateLightResource';
 
 /**
  * Custom hook to manage light updates with rate limiting and pending update for smoother
@@ -14,6 +14,7 @@ import { updateLightResource } from '../utils/updateLightResource';
  */
 
 const useLightUpdater = (updateCachedLights, selectedResource) => {
+    const { updateLightResource } = useUpdateLightResource();
     const pendingRequestRef = useRef(false);
     const pendingUpdateRef = useRef(null);
 

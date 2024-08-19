@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { convertHexToXy } from '../utils/colorConvert';
+import useStaticDataStore from '../stores/staticDataStore';
 
 const useUpdateScene = (cachedLights) => {
+    const { setErrorModal } = useStaticDataStore();
     const [hasActiveLight, setHasActiveLight] = useState(false);
 
     useEffect(() => {
@@ -77,7 +79,7 @@ const useUpdateScene = (cachedLights) => {
 
         if (res.error) {
             console.error(res.error);
-            // TODO: error flag
+            setErrorModal();
             return;
         }
 

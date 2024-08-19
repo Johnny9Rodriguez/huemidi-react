@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import SceneOptions from './SceneOptions';
 import useOnClickOutside from '../../../hooks/useCloseOnClickOutside';
-import { updateSceneLights } from '../../../utils/updateSceneLights';
+import useUpdateSceneLights from '../../../hooks/useUpdateSceneLights';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
 function SceneCard({ scene, updateCachedLights }) {
-
+    const { updateSceneLights } = useUpdateSceneLights();
     const [showOptions, setShowOptions] = useState(false);
     const cardRef = useRef(null);
 

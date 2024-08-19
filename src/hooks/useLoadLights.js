@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
+import useStaticDataStore from '../stores/staticDataStore';
 
 const useLoadLights = (selectedGroup, setCachedLights, setLightsLoading) => {
+    const { setErrorModal } = useStaticDataStore()
+
     useEffect(() => {
         const fetchLights = async () => {
             if (!selectedGroup) return;
@@ -12,7 +15,7 @@ const useLoadLights = (selectedGroup, setCachedLights, setLightsLoading) => {
 
             if (res.error) {
                 console.error(res.error);
-                // TODO: error flag
+                setErrorModal();
                 return;
             }
 
@@ -25,7 +28,7 @@ const useLoadLights = (selectedGroup, setCachedLights, setLightsLoading) => {
         };
 
         fetchLights();
-    }, [selectedGroup, setCachedLights, setLightsLoading]);
+    }, [selectedGroup, setCachedLights, setLightsLoading, setErrorModal]);
 };
 
 export default useLoadLights;

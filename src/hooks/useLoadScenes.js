@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
+import useStaticDataStore from '../stores/staticDataStore';
 
 const useLoadScenes = (selectedGroup, setCachedScenes, setScenesLoading) => {
+    const { setErrorModal } = useStaticDataStore();
+
     useEffect(() => {
         const fetchScenes = async () => {
             if (!selectedGroup) return;
@@ -10,7 +13,7 @@ const useLoadScenes = (selectedGroup, setCachedScenes, setScenesLoading) => {
 
             if (res.error) {
                 console.error('res.error');
-                // TODO: error flag
+                setErrorModal();
                 return;
             }
 
@@ -22,7 +25,7 @@ const useLoadScenes = (selectedGroup, setCachedScenes, setScenesLoading) => {
         };
 
         fetchScenes();
-    }, [selectedGroup, setCachedScenes, setScenesLoading]);
+    }, [selectedGroup, setCachedScenes, setScenesLoading, setErrorModal]);
 };
 
 export default useLoadScenes;

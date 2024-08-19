@@ -3,7 +3,7 @@ import useStaticDataStore from '../../../stores/staticDataStore';
 import { CgSpinner } from 'react-icons/cg';
 
 function DeleteSceneModal({ isLoading, setIsLoading, setCachedScenes }) {
-    const { selectedResource, closeModal } = useStaticDataStore();
+    const { selectedResource, closeModal, setErrorModal } = useStaticDataStore();
 
     const handleDelete = async () => {
         if (isLoading) return;
@@ -14,7 +14,7 @@ function DeleteSceneModal({ isLoading, setIsLoading, setCachedScenes }) {
 
         if (res.error) {
             console.error(res.error);
-            // TODO: error flag
+            setErrorModal();
             return;
         }
 
