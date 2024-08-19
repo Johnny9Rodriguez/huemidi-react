@@ -3,7 +3,7 @@ const sceneColorPalette = (cachedLights) => {
     for (const light of cachedLights) {
         if (light.state.on) {
             const hex = light.state.color.hex;
-            colors.push(hex);
+            if (!colors.includes(hex)) colors.push(hex);
         }
     }
 
@@ -12,7 +12,7 @@ const sceneColorPalette = (cachedLights) => {
 
 const scenePreviewColor = (palette) => {
     const colors = palette;
-    
+
     if (!colors || colors.length === 0) {
         return '#000000'; // or any default value
     }
