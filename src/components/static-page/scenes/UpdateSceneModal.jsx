@@ -5,17 +5,27 @@ import useUpdateScene from '../../../hooks/useUpdateScene';
 import classNames from 'classnames';
 import { IoMdWarning } from 'react-icons/io';
 
-function CreateSceneModal({ cachedLights, setCachedScenes }) {
-    const { closeModal } = useStaticDataStore();
+function UpdateSceneModal({ cachedLights, setCachedScenes, options }) {
+    const { selectedResource, closeModal } = useStaticDataStore();
+    // eslint-disable-next-line
     const { name, setName, setEditName, inputRef } = useSceneNameInput(''); //prettier-ignore
-
+    const { label, reqMethod } = options;
     const { hasActiveLight, previewColor } = useUpdateScene(cachedLights);
+    const scene = selectedResource;
+
+    useEffect(() => {
+        if (scene) {
+            setName(scene.name);
+        }
+    }, [scene, setName]);
 
     useEffect(() => {
         if (hasActiveLight) inputRef.current.focus();
     }, [inputRef, hasActiveLight]);
 
-    const handleCreate = () => {};
+    const handleUpdate = () => {
+        if (reqMethod) return; // if update > PUT, else > POST
+    };
 
     const btnClasses = 'w-20 max-w-full py-0.5 bg-gray-700';
 
@@ -73,9 +83,9 @@ function CreateSceneModal({ cachedLights, setCachedScenes }) {
                     </button>
                     <button
                         className={`${btnClasses} ${btnConfirm}`}
-                        onClick={handleCreate}
+                        onClick={handleUpdate}
                     >
-                        create
+                        {label}
                     </button>
                 </div>
             </>
@@ -89,4 +99,4 @@ function CreateSceneModal({ cachedLights, setCachedScenes }) {
     );
 }
 
-export default CreateSceneModal;
+export default UpdateSceneModal;

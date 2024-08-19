@@ -10,8 +10,7 @@ import ColorPicker from '../components/color-picker/ColorPicker';
 import { MODAL_TYPES } from '../constants/modalTypes';
 import Modal from '../components/shared/Modal';
 import DeleteSceneModal from '../components/static-page/scenes/DeleteSceneModal';
-import CreateSceneModal from '../components/static-page/scenes/CreateSceneModal';
-import EditSceneModal from '../components/static-page/scenes/EditSceneModal';
+import UpdateSceneModal from '../components/static-page/scenes/UpdateSceneModal';
 import { CgSpinner } from 'react-icons/cg';
 
 function StaticPage() {
@@ -90,9 +89,10 @@ function StaticPage() {
                 // modalComponent = <CreateSceneModal cachedLights={cachedLights} setCachedScenes={setCachedScenes} />;
                 modalComponent = (
                     <Modal>
-                        <CreateSceneModal
+                        <UpdateSceneModal
                             cachedLights={cachedLights}
                             setCachedScenes={setCachedScenes}
+                            options={{ label: 'create', reqMethod: 'POST' }}
                         />
                     </Modal>
                 );
@@ -100,9 +100,10 @@ function StaticPage() {
             case MODAL_TYPES.EDIT_SCENE:
                 modalComponent = (
                     <Modal>
-                        <EditSceneModal
+                        <UpdateSceneModal
                             cachedLights={cachedLights}
                             setCachedScenes={setCachedScenes}
+                            options={{ label: 'save', reqMethod: 'PUT' }}
                         />
                     </Modal>
                 );

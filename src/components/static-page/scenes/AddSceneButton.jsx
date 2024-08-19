@@ -4,12 +4,15 @@ import { MODAL_TYPES } from '../../../constants/modalTypes';
 import { BiPlus } from 'react-icons/bi';
 
 function AddSceneButton() {
-    const { setActiveModal } = useStaticDataStore();
+    const { setSelectedResource, setActiveModal } = useStaticDataStore();
 
     return (
         <button
             className='w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-200 bg-gray-900 border border-gray-700 hover:cursor-pointer hover:bg-gray-800'
-            onClick={() => setActiveModal(MODAL_TYPES.CREATE_SCENE)}
+            onClick={() => {
+                setSelectedResource(null);
+                setActiveModal(MODAL_TYPES.CREATE_SCENE);
+            }}
         >
             <BiPlus />
         </button>
