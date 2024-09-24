@@ -9,7 +9,7 @@ const useLoadScenes = (selectedGroup, setCachedScenes, setScenesLoading) => {
             if (!selectedGroup) return;
 
             const groupID = selectedGroup.id;
-            const res = await window.huemidi.fetchScenes(groupID);
+            const res = await window.huemidi.static.fetchScenes(groupID);
 
             if (res.error) {
                 console.error('res.error');

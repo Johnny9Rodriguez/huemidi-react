@@ -66,11 +66,11 @@ const useUpdateScene = (cachedLights) => {
         // If sceneID is null, request will create a new scene with POST.
         // Otherwise it will update the scene with given ID.
         if (!sceneID) {
-            res = await window.huemidi.createResource('scene', data);
+            res = await window.huemidi.static.createResource('scene', data);
         } else {
             // Cannot modify group reference, i.e. remove it before update.
             const { group, ...updateData } = data;
-            res = await window.huemidi.updateResource(
+            res = await window.huemidi.static.updateResource(
                 'scene',
                 sceneID,
                 updateData

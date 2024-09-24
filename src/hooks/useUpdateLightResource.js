@@ -33,7 +33,7 @@ function useUpdateLightResource() {
     const updateLightResource = async (id, data) => {
         const updateData = composeLightData(data);
 
-        const res = await window.huemidi.updateResource(
+        const res = await window.huemidi.static.updateResource(
             'light',
             id,
             updateData

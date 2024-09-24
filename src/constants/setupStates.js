@@ -1,0 +1,9 @@
+const SetupState = {
+    LOADING: 'LOADING',
+    BRIDGE_NOT_FOUND: 'BRIDGE_NOT_FOUND',
+    BRIDGE_FOUND: 'BRIDGE_FOUND',
+    CONNECTING: 'CONNECTING',
+    BRIDGE_LINKED: 'BRIDGE_LINKED',
+};
+
+export default SetupState;

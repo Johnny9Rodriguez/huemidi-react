@@ -11,7 +11,7 @@ const useLoadLights = (selectedGroup, setCachedLights, setLightsLoading) => {
             const groupID = selectedGroup.id;
             const type = selectedGroup.type;
 
-            const res = await window.huemidi.fetchLights(groupID, type);
+            const res = await window.huemidi.static.fetchLights(groupID, type);
 
             if (res.error) {
                 console.error(res.error);

@@ -6,7 +6,7 @@ const useLoadGroups = (setCachedLightGroups) => {
 
     useEffect(() => {
         const fetchLightGroups = async () => {
-            const res = await window.huemidi.fetchLightGroups();
+            const res = await window.huemidi.static.fetchLightGroups();
 
             if (res.error) {
                 console.error(res.error);

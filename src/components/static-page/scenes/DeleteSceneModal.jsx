@@ -10,7 +10,7 @@ function DeleteSceneModal({ isLoading, setIsLoading, setCachedScenes }) {
         setIsLoading(true);
 
         const sceneID = selectedResource.id;
-        const res = await window.huemidi.deleteResource('scene', sceneID);
+        const res = await window.huemidi.static.deleteResource('scene', sceneID);
 
         if (res.error) {
             console.error(res.error);
