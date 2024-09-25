@@ -3,12 +3,6 @@ import SetupState from '../../constants/setupStates';
 import { IoMdWarning } from 'react-icons/io';
 
 function BridgeFound({ bridge, setSetupState, linkErrorFlag }) {
-    const name = () => {
-        const bName = bridge.packet.answers[0].name;
-        const bType = '.' + bridge.fqdn;
-        return bName.replace(bType, '');
-    };
-
     const handleClick = () => {
         setSetupState(SetupState.CONNECTING);
     };
@@ -22,9 +16,9 @@ function BridgeFound({ bridge, setSetupState, linkErrorFlag }) {
                     className='w-20 h-20'
                 />
                 <div className=''>
-                    <div>{name()}</div>
+                    <div>{bridge.name}</div>
                     <div className='text-sm text-gray-400'>
-                        {bridge.address}
+                        {bridge.ip}
                     </div>
                 </div>
             </div>
