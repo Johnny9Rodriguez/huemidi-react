@@ -32,6 +32,12 @@ function Header() {
                         selected={selected}
                         setSelected={handleSelected}
                     />
+                    <HeaderLink
+                        name={'Settings'}
+                        route={'/settings'}
+                        selected={selected}
+                        setSelected={handleSelected}
+                    />
                 </nav>
                 <div className='drag-area flex-grow flex justify-end'>
                     <Logo />

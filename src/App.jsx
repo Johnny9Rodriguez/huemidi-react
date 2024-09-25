@@ -3,6 +3,7 @@ import Layout from './layout/Layout';
 import StaticPage from './pages/StaticPage';
 import AmbientPage from './pages/AmbientPage';
 import MidiPage from './pages/MidiPage';
+import SettingsPage from './pages/SettingsPage.jsx';
 import SetupLayout from './layout/SetupLayout';
 
 const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
             {
                 path: '/midi',
                 element: <MidiPage />,
+            },
+            {
+                path: '/settings',
+                element: <SettingsPage />,
             },
         ],
     },

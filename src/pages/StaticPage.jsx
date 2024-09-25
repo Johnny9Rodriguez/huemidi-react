@@ -12,7 +12,7 @@ import Modal from '../components/shared/Modal';
 import DeleteSceneModal from '../components/static-page/scenes/DeleteSceneModal';
 import UpdateSceneModal from '../components/static-page/scenes/UpdateSceneModal';
 import ErrorModal from '../components/shared/ErrorModal';
-import { CgSpinner } from 'react-icons/cg';
+import LoadingScreen from '../components/shared/LoadingScreen';
 
 function StaticPage() {
     const { selectedGroup, setSelectedGroup, showColorPicker, activeModal } = useStaticDataStore(); //prettier-ignore
@@ -53,18 +53,11 @@ function StaticPage() {
         );
     };
 
-    const loadingScreen = () => {
-        return (
-            <div className='h-full flex items-center justify-center text-6xl'>
-                <CgSpinner className='animate-spin' />
-            </div>
-        );
-    };
-
-    if (pageLoading && activeModal !== MODAL_TYPES.ERROR) return loadingScreen();
+    if (pageLoading && activeModal !== MODAL_TYPES.ERROR)
+        return <LoadingScreen />;
 
     const renderPanel = () => {
-        if (panelLoading) return loadingScreen();
+        if (panelLoading) return <LoadingScreen />;
 
         return (
             <StaticPanel
