@@ -81,11 +81,11 @@ function UpdateSceneModal({
     };
 
     const btnClasses =
-        'w-20 h-6 max-w-full flex items-center justify-center py-0.5 bg-gray-700';
+        'w-20 h-6 max-w-full flex items-center justify-center py-0.5 bg-gray-900 border border-gray-700';
 
     const btnConfirm = classNames({
         'opacity-50 hover:cursor-default': !hasActiveLight,
-        'hover:bg-gray-500': hasActiveLight,
+        'hover:bg-gray-700': hasActiveLight,
     });
 
     const renderWarning = () => {
@@ -98,7 +98,7 @@ function UpdateSceneModal({
                     </div>
                 </div>
                 <button
-                    className={`${btnClasses} hover:bg-gray-500 text-gray-200 text-sm`}
+                    className={`${btnClasses} hover:bg-gray-700 text-gray-200 text-sm`}
                     onClick={closeModal}
                 >
                     cancel
@@ -131,7 +131,7 @@ function UpdateSceneModal({
                 </div>
                 <div className='w-full flex items-center justify-center gap-4 text-sm text-gray-200'>
                     <button
-                        className={`${btnClasses} hover:bg-gray-500`}
+                        className={`${btnClasses} hover:bg-gray-700`}
                         onClick={() => {
                             if (isLoading) return;
                             closeModal();

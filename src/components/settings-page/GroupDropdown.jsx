@@ -1,11 +1,8 @@
 import React, { useState, useRef } from 'react';
 import useOnClickOutside from '../../hooks/useCloseOnClickOutside';
-import useStaticDataStore from '../../stores/staticDataStore';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
-function LightGroupDropdown({ cachedLightGroups, setLoading, setBri }) {
-    const { selectedGroup, setSelectedGroup } = useStaticDataStore();
-
+function GroupDropdown({ cachedLightGroups, preferredGroup, setPreferredGroup }) {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -45,12 +42,7 @@ function LightGroupDropdown({ cachedLightGroups, setLoading, setBri }) {
                             key={id}
                             className='px-2 h-8 flex items-center hover:bg-gray-600'
                             onClick={() => {
-                                setBri(50);
-                                setIsOpen(false);
-                                if (selectedGroup.id !== group.id) {
-                                    setLoading();
-                                    setSelectedGroup(group);
-                                }
+                                // Set preference
                             }}
                         >
                             {option(name, type)}
@@ -70,9 +62,9 @@ function LightGroupDropdown({ cachedLightGroups, setLoading, setBri }) {
                 className='px-2 h-8 w-full flex flex-row items-center justify-between gap-2 bg-gray-700 border border-gray-600  hover:bg-gray-600'
                 onClick={() => setIsOpen(!isOpen)}
             >
-                {selectedGroup &&
-                    option(selectedGroup.name, selectedGroup.type)}
-                {!selectedGroup && <div>No Groups</div>}
+                {preferredGroup &&
+                    option(preferredGroup.name, preferredGroup.type)}
+                {!preferredGroup && <div>No Groups</div>}
                 <MdKeyboardArrowDown
                     className={`${
                         isOpen && 'rotate-180'
@@ -84,4 +76,4 @@ function LightGroupDropdown({ cachedLightGroups, setLoading, setBri }) {
     );
 }
 
-export default LightGroupDropdown;
+export default GroupDropdown;

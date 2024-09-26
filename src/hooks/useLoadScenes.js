@@ -7,17 +7,20 @@ const useLoadScenes = (selectedGroup, setCachedScenes, setScenesLoading) => {
     useEffect(() => {
         const fetchScenes = async () => {
             if (!selectedGroup) return;
+            if (selectedGroup.type === 'bridge_home') {
+                setCachedScenes([]);
+            } else {
+                const groupID = selectedGroup.id;
+                const res = await window.huemidi.static.fetchScenes(groupID);
 
-            const groupID = selectedGroup.id;
-            const res = await window.huemidi.static.fetchScenes(groupID);
+                if (res.error) {
+                    console.error('res.error');
+                    setErrorModal();
+                    return;
+                }
 
-            if (res.error) {
-                console.error('res.error');
-                setErrorModal();
-                return;
+                setCachedScenes(res.data);
             }
-
-            setCachedScenes(res.data);
 
             setTimeout(() => {
                 setScenesLoading(false);

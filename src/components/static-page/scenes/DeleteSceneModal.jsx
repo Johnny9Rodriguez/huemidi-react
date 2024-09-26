@@ -3,14 +3,18 @@ import useStaticDataStore from '../../../stores/staticDataStore';
 import { CgSpinner } from 'react-icons/cg';
 
 function DeleteSceneModal({ isLoading, setIsLoading, setCachedScenes }) {
-    const { selectedResource, closeModal, setErrorModal } = useStaticDataStore();
+    const { selectedResource, closeModal, setErrorModal } =
+        useStaticDataStore();
 
     const handleDelete = async () => {
         if (isLoading) return;
         setIsLoading(true);
 
         const sceneID = selectedResource.id;
-        const res = await window.huemidi.static.deleteResource('scene', sceneID);
+        const res = await window.huemidi.static.deleteResource(
+            'scene',
+            sceneID
+        );
 
         if (res.error) {
             console.error(res.error);
@@ -22,7 +26,7 @@ function DeleteSceneModal({ isLoading, setIsLoading, setCachedScenes }) {
             setCachedScenes((prevScenes) =>
                 prevScenes.filter((scene) => scene.id !== sceneID)
             );
-    
+
             closeModal();
         }, 333);
     };
@@ -36,22 +40,22 @@ function DeleteSceneModal({ isLoading, setIsLoading, setCachedScenes }) {
             </div>
             <div className='w-full flex items-center justify-center gap-4 text-sm text-gray-200'>
                 <button
-                    className={`${btnClasses} bg-gray-700 hover:bg-gray-500`}
+                    className={`${btnClasses} bg-gray-900 border border-gray-700 hover:bg-gray-700`}
                     onClick={closeModal}
                 >
                     cancel
                 </button>
                 <button
-                    className={`${btnClasses} bg-red-900 hover:bg-red-700`}
+                    className={`${btnClasses} bg-red-950 border border-red-800 hover:bg-red-800`}
                     onClick={handleDelete}
                 >
                     {isLoading ? (
-                            <div className='h-full flex items-center justify-center text-xl'>
-                                <CgSpinner className='animate-spin' />
-                            </div>
-                        ) : (
-                            'delete'
-                        )}
+                        <div className='h-full flex items-center justify-center text-xl'>
+                            <CgSpinner className='animate-spin' />
+                        </div>
+                    ) : (
+                        'delete'
+                    )}
                 </button>
             </div>
         </div>

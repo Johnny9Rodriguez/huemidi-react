@@ -1,7 +1,7 @@
 import React from 'react';
 
 function MidiPage() {
-    return <div>MidiLight</div>;
+    return <div className='p-2'>MidiLight</div>;
 }
 
 export default MidiPage;

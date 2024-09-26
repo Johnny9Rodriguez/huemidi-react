@@ -64,7 +64,7 @@ function LightCard({ light, updateCachedLights }) {
     };
 
     return (
-        <div className='flex flex-col border border-gray-800'>
+        <div className='flex flex-col border border-gray-700'>
             <div className='p-3 flex flex-row items-center justify-between bg-gray-950 hover:bg-gray-900'>
                 <div
                     className={`${
