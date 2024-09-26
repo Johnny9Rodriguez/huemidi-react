@@ -42,7 +42,9 @@ function GroupDropdown({ cachedLightGroups, preferredGroup, setPreferredGroup })
                             key={id}
                             className='px-2 h-8 flex items-center hover:bg-gray-600'
                             onClick={() => {
-                                // Set preference
+                                window.huemidi.settings.updatePreferredGroup(group.id);
+                                setPreferredGroup(group);
+                                setIsOpen(false);
                             }}
                         >
                             {option(name, type)}

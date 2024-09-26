@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import useStaticDataStore from '../stores/staticDataStore';
 
-const useLoadScenes = (selectedGroup, setCachedScenes, setScenesLoading) => {
+const useLoadScenes = (selectedGroup, setCachedScenes, setScenesLoading, prefLoading) => {
     const { setErrorModal } = useStaticDataStore();
 
     useEffect(() => {
@@ -9,26 +9,35 @@ const useLoadScenes = (selectedGroup, setCachedScenes, setScenesLoading) => {
             if (!selectedGroup) return;
             if (selectedGroup.type === 'bridge_home') {
                 setCachedScenes([]);
+
+                setTimeout(() => {
+                    setScenesLoading(false);
+                }, 300);
             } else {
-                const groupID = selectedGroup.id;
-                const res = await window.huemidi.static.fetchScenes(groupID);
+                try {
+                    const groupID = selectedGroup.id;
+                    const res = await window.huemidi.static.fetchScenes(
+                        groupID
+                    );
 
-                if (res.error) {
-                    console.error('res.error');
-                    setErrorModal();
-                    return;
+                    if (res.error) {
+                        console.error('res.error');
+                        return;
+                    }
+
+                    setCachedScenes(res.data);
+
+                    setTimeout(() => {
+                        setScenesLoading(false);
+                    }, 300);
+                } catch (error) {
+                    console.error(error);
                 }
-
-                setCachedScenes(res.data);
             }
-
-            setTimeout(() => {
-                setScenesLoading(false);
-            }, 300);
         };
 
-        fetchScenes();
-    }, [selectedGroup, setCachedScenes, setScenesLoading, setErrorModal]);
+        if (!prefLoading) fetchScenes();
+    }, [selectedGroup, setCachedScenes, setScenesLoading, setErrorModal, prefLoading]);
 };
 
 export default useLoadScenes;

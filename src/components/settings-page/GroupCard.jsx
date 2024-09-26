@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GroupDropdown from './GroupDropdown.jsx';
-import useLoadGroups from '../../hooks/useLoadGroups.js';
 
-function GroupCard({ setLoadingGroups }) {
-    const [cachedLightGroups, setCachedLightGroups] = useState([]);
+function GroupCard({ cachedLightGroups }) {
     const [preferredGroup, setPreferredGroup] = useState(null);
 
-    useLoadGroups(setCachedLightGroups);
+    useEffect(() => {
+        const fetchPreferredGroup = async () => {
+            const groupID = await window.huemidi.settings.fetchPreferredGroup();
+            const group = cachedLightGroups.find(
+                (group) => group.id === groupID
+            );
+            if (group === null) return;
+            setPreferredGroup(group);
+        };
+        if (cachedLightGroups && cachedLightGroups.length > 0) {
+            fetchPreferredGroup();
+        }
+    }, [cachedLightGroups]);
 
     return (
-        <div className='flex bg-gray-900 hover:bg-gray-800 border border-gray-700 p-2 justify-between items-center'>
+        <div className='flex bg-gray-900 gap-4 hover:bg-gray-800 border border-gray-700 p-2 justify-between items-center'>
             <div>
                 <div>Preferred Light Group</div>
                 <div className='text-sm text-gray-400'>

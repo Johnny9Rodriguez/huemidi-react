@@ -21,14 +21,31 @@ function StaticPage() {
     const [cachedScenes, setCachedScenes] = useState([]);
     // TODO: refactor loading states into a single state { pageLoading, panelLoading, ... }
     const [pageLoading, setPageLoading] = useState(true);
+    const [prefLoading, setPrefLoading] = useState(true);
     const [panelLoading, setPanelLoading] = useState(true);
     const [lightsLoading, setLightsLoading] = useState(true);
     const [scenesLoading, setScenesLoading] = useState(true);
 
     useLoadGroups(setCachedLightGroups);
-    useLoadLights(selectedGroup, setCachedLights, setLightsLoading);
-    useLoadScenes(selectedGroup, setCachedScenes, setScenesLoading);
+    useLoadLights(selectedGroup, setCachedLights, setLightsLoading, prefLoading);
+    useLoadScenes(selectedGroup, setCachedScenes, setScenesLoading, prefLoading);
     useSelectGroup(cachedLightGroups, selectedGroup, setSelectedGroup);
+
+    useEffect(() => {
+        const fetchPreferredGroup = async () => {
+            const prefGroupID =
+                await window.huemidi.settings.fetchPreferredGroup();
+            const prefGroup = cachedLightGroups.find(
+                (group) => group.id === prefGroupID
+            );
+            setSelectedGroup(prefGroup);
+            setPrefLoading(false);
+        };
+
+        if (cachedLightGroups && cachedLightGroups.length > 0) {
+            fetchPreferredGroup();
+        }
+    }, [cachedLightGroups, setSelectedGroup]);
 
     useEffect(() => {
         if (!lightsLoading && !scenesLoading) {
