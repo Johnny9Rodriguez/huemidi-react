@@ -27,8 +27,18 @@ function StaticPage() {
     const [scenesLoading, setScenesLoading] = useState(true);
 
     useLoadGroups(setCachedLightGroups);
-    useLoadLights(selectedGroup, setCachedLights, setLightsLoading, prefLoading);
-    useLoadScenes(selectedGroup, setCachedScenes, setScenesLoading, prefLoading);
+    useLoadLights(
+        selectedGroup,
+        setCachedLights,
+        setLightsLoading,
+        prefLoading
+    );
+    useLoadScenes(
+        selectedGroup,
+        setCachedScenes,
+        setScenesLoading,
+        prefLoading
+    );
     useSelectGroup(cachedLightGroups, selectedGroup, setSelectedGroup);
 
     useEffect(() => {

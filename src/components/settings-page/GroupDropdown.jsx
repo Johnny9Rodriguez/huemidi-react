@@ -66,7 +66,7 @@ function GroupDropdown({ cachedLightGroups, preferredGroup, setPreferredGroup })
             >
                 {preferredGroup &&
                     option(preferredGroup.name, preferredGroup.type)}
-                {!preferredGroup && <div>No Groups</div>}
+                {!preferredGroup && <div>No Preferred Group</div>}
                 <MdKeyboardArrowDown
                     className={`${
                         isOpen && 'rotate-180'
