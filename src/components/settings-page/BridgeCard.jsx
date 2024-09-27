@@ -12,6 +12,7 @@ function BridgeCard({ bridgeData, setShowModal }) {
                     className='w-16 h-16'
                     src='./images/bridge-256.png'
                     alt='bridge'
+                    draggable='false'
                 />
                 <div className='self-center'>
                     <div>{bridgeData.name}</div>

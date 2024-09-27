@@ -35,6 +35,7 @@ function BridgeConnect({ setSetupState, setLinkErrorFlag }) {
                     src='./images/bridge-256.png'
                     alt='bridge'
                     className='w-20 h-20'
+                    draggable='false'
                 />
                 <div className='flex flex-col gap-2'>
                     <div className='w-full bg-gray-700 h-1 relative'>

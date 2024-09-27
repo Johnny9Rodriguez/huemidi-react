@@ -16,6 +16,7 @@ function BridgeNotFound({ setSetupState }) {
                     alt='bridge'
                     className='w-20 h-20 opacity-25'
                     style={{ filter: 'grayscale(100%)' }}
+                    draggable='false'
                 />
                 <div>
                     <div className='flex gap-2 items-center'>

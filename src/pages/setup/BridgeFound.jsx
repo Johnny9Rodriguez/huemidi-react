@@ -14,6 +14,7 @@ function BridgeFound({ bridge, setSetupState, linkErrorFlag }) {
                     src='./images/bridge-256.png'
                     alt='bridge'
                     className='w-20 h-20'
+                    draggable='false'
                 />
                 <div className=''>
                     <div>{bridge.name}</div>
