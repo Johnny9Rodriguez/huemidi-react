@@ -18,9 +18,7 @@ function ColorPicker({ updateCachedLights }) {
     const [colorMode, setColorMode] = useState(null);
     const colorPicker = useRef(null);
 
-    useOnClickOutside(colorPicker, () =>
-        setShowColorPicker(false)
-    );
+    useOnClickOutside(colorPicker, () => setShowColorPicker(false));
 
     // Init color picker.
     useEffect(() => {
@@ -71,7 +69,7 @@ function ColorPicker({ updateCachedLights }) {
 
     return (
         <div
-            className='px-4 pt-2 pb-4 mx-auto mt-20 w-min flex flex-col items-center justify-center gap-4 bg-black border border-white/25 shadow-lg'
+            className='px-4 pt-2 pb-4 mx-auto mt-20 w-min flex flex-col items-center justify-center gap-4 bg-gradient-to-b from-gray-800 to-gray-900 border border-gray-700 shadow-lg'
             ref={colorPicker}
         >
             <div className='flex flex-row justify-center'>
@@ -102,7 +100,7 @@ function ColorPicker({ updateCachedLights }) {
                 />
             )}
             <button
-                className='px-2 w-min text-white border-2 border-white hover:bg-white hover:text-black hover:cursor-pointer'
+                className='px-2 w-min text-white border bg-gray-900 border-gray-700 hover:bg-gray-700 hover:cursor-pointer'
                 onClick={() => setShowColorPicker(false)}
             >
                 Close

@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import Layout from './layout/Layout';
 import StaticPage from './pages/StaticPage';
 import AmbientPage from './pages/AmbientPage';
@@ -6,7 +6,7 @@ import MidiPage from './pages/MidiPage';
 import SettingsPage from './pages/SettingsPage.jsx';
 import SetupLayout from './layout/SetupLayout';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
     {
         path: '/',
         element: <Layout />,
@@ -27,6 +27,10 @@ const router = createBrowserRouter([
                 path: '/settings',
                 element: <SettingsPage />,
             },
+            {
+                path: '*',
+                element: <h1>404 - Page Not Found</h1>,
+            },
         ],
     },
     {
@@ -36,7 +40,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-    return <RouterProvider router={router} />;
+    return <RouterProvider router={router} basename='/app' />;
 }
 
 export default App;
